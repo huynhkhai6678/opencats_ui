@@ -1,0 +1,69 @@
+@let contactList = contacts.value() || [];
+
+<p-table
+    [value]="contactList"
+    [lazy]="false"
+    [paginator]="false"
+    [rowsPerPageOptions]="[10, 20, 50]"
+>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="first_name">
+                First Name
+                <p-sortIcon field="first_name"></p-sortIcon>
+            </th>
+            <th pSortableColumn="last_name">
+                Last Name
+                <p-sortIcon field="last_name"></p-sortIcon>
+            </th>
+            <th pSortableColumn="title">
+                Title
+                <p-sortIcon field="title"></p-sortIcon>
+            </th>
+            <th pSortableColumn="department">
+                Department
+                <p-sortIcon field="department"></p-sortIcon>
+            </th>
+            <th pSortableColumn="phone_work">
+                Work Phone
+                <p-sortIcon field="phone_work"></p-sortIcon>
+            </th>
+            <th pSortableColumn="phone_cell">
+                Cell Phone
+                <p-sortIcon field="phone_cell"></p-sortIcon>
+            </th>
+            <th pSortableColumn="date_created">
+                Created
+                <p-sortIcon field="date_created"></p-sortIcon>
+            </th>
+            <th pSortableColumn="date_modified">
+                Owner
+                <p-sortIcon field="date_modified"></p-sortIcon>
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-row>
+        <tr>
+            <td><p-button label="{{row.first_name}}" link routerLink="{{row.contact_id}}"/></td>
+            <td><p-button label="{{row.last_name}}" link routerLink="{{row.contact_id}}"/></td>
+            <td>{{ row.title }}</td>
+            <td>{{ row.department }}</td>
+            <td>{{ row.phone_work }}</td>
+            <td>{{ row.phone_cell }}</td>
+            <td>{{ row.date_created | date : 'dd/MM/yyyy' }}</td>
+            <td>{{ row.owner }}</td>
+            <td>
+                <div class="flex gap-4">
+                    <a [href]="'mailto:' + row.email" class="hover:cursor-pointer">
+                        <fa-icon [icon]="faEnvelope"></fa-icon>
+                    </a>
+                    <fa-icon [icon]="faPencilAlt" class="hover:cursor-pointer"></fa-icon>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

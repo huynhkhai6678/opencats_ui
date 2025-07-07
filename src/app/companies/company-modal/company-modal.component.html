@@ -1,0 +1,95 @@
+<p-dialog header="Create Company" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }">
+    <form [formGroup]="companyForm" (ngSubmit)="onSubmit(companyForm.valid, companyForm.value)">
+        <p-message>Basic Information</p-message>
+        <div class="columns-2 mt-3">
+            <div class="flex flex-col">
+                <label for="name" class="font-semibold">Company Name</label>
+                <input pInputText id="name" formControlName="name" class="flex-auto" autocomplete="off" />
+                @if (isInvalid(companyForm, 'name')) {
+                    <p-message severity="error" size="small" variant="simple">Name is required.</p-message>
+                }
+            </div>
+            <div class="flex flex-col">
+                <label for="phone1" class="font-semibold">Primary Phone</label>
+                <input pInputText id="phone1" formControlName="phone1" class="flex-auto" autocomplete="off" />
+            </div>
+        </div>
+        <div class="columns-2 mt-3">
+            <div class="flex flex-col">
+                <label for="phone2" class="font-semibold">Secondary Phone</label>
+                <input pInputText id="phone2" formControlName="phone2" class="flex-auto" autocomplete="off" />
+            </div>
+            <div class="flex flex-col">
+                <label for="email" class="font-semibold">Fax Number</label>
+                <input pInputText id="email" formControlName="fax_number" class="flex-auto" autocomplete="off" />
+            </div>
+        </div>
+        <div class="columns-2 mt-3">
+            <div class="flex flex-col">
+                <label for="address" class="font-semibold">Address</label>
+                <textarea rows="2" cols="30" pTextarea formControlName="address" autocomplete="off"></textarea>
+            </div>
+            <div class="flex flex-col">
+                <label for="city" class="font-semibold">City</label>
+                <input pInputText id="city" formControlName="city" class="flex-auto" autocomplete="off" />
+            </div>
+        </div>
+        <div class="columns-2 mt-3">
+            <div class="flex flex-col">
+                <label for="state" class="font-semibold">State</label>
+                <input pInputText id="state" formControlName="state" class="flex-auto" autocomplete="off" />
+            </div>
+            <div class="flex flex-col">
+                <label for="zip" class="font-semibold">Postal Code</label>
+                <input pInputText id="zip" formControlName="zip" class="flex-auto" autocomplete="off" />
+            </div>
+        </div>
+        <div class="columns-2 mt-3">
+            <div class="flex flex-col">
+                <label for="url" class="font-semibold">Web Site</label>
+                <input pInputText id="url" formControlName="url" class="flex-auto" autocomplete="off" />
+            </div>
+            <div class="flex flex-col">
+                <label for="departments" class="font-semibold">Departments</label>
+                <input pInputText id="departments" formControlName="departments" class="flex-auto" autocomplete="off" />
+            </div>
+        </div>
+        <div class="columns-1 mt-3">
+            <div class="flex flex-col">
+                <label for="is_hot" class="font-semibold">Hot company</label>
+                <p-checkbox id="is_hot" formControlName="is_hot" [binary]="true" [trueValue]=1  [falseValue]=0/>
+            </div>
+        </div>
+        <div class="columns-1 mt-3">
+            <div class="flex flex-col">
+                <label for="url" class="font-semibold">Billing contact</label>
+                <p-select [options]="contactList()" formControlName="billing_contact" optionLabel="label" optionValue="value"  placeholder="Select billing contact" />
+            </div>
+        </div>
+        <div class="columns-1 mt-3">
+            <p-message>Other</p-message>
+        </div>
+        <div class="columns-1 mt-3">
+            <div class="flex flex-col">
+                <label for="url" class="font-semibold">Owner</label>
+                <p-select [options]="ownerList()" formControlName="owner" optionLabel="label" optionValue="value" />
+            </div>
+        </div>
+        <div class="columns-1 mt-3">
+            <div class="flex flex-col">
+                <label for="url" class="font-semibold">Key Technologies</label>
+                <input pInputText id="url" formControlName="key_technologies" class="flex-auto" autocomplete="off" />
+            </div>
+        </div>
+        <div class="columns-1 mt-3">
+            <div class="flex flex-col">
+                <label for="departments" class="font-semibold">Misc. Notes</label>
+                <p-select [options]="ownerList()" formControlName="company_department_id" optionLabel="name" optionValue="company_department_id" />
+            </div>
+        </div>
+        <div class="flex justify-end gap-2 mt-4">
+            <p-button label="Cancel" severity="secondary" (click)="visible.set(false)" />
+            <p-button label="Save" type="submit" />
+        </div>
+    </form>
+</p-dialog>

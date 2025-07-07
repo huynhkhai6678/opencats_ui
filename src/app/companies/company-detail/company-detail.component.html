@@ -1,0 +1,89 @@
+<div class="mx-auto p-6 lg:px-8">
+    <div class="mt-2">
+        <h2 class="text-2xl font-bold">Companies: Company Details</h2>
+    </div>
+    <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Company Detail</h5>
+            <div class="flex direction-end mt-2 justify-end">
+                <p-button label="Edit" class="me-2" (onClick)="edit()"/>
+                <p-button label="Delete" severity="danger" (onClick)="delete($event)"/>
+            </div>
+            <div class="flex gap-8">
+                <div class="flex flex-col gap-2 w-1/2">
+                    <div class="flex">
+                        <span class="w-48 font-bold">Name:</span>
+                        <span>{{data()?.name}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Primary Phone:</span>
+                        <span>{{data()?.phone1}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Secondary Phone:</span>
+                        <span>{{data()?.phone2}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Fax Number:</span>
+                        <span>{{data()?.fax_number}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Address:</span>
+                        <div>
+                            <p>{{data()?.address}}</p>
+                            <p>{{data()?.state}} {{data()?.city}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2 w-1/2">
+                    <div class="flex">
+                        <span class="w-48 font-bold">Billing Contact:</span>
+                        <span>{{data()?.billing_contact}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Web Site:</span>
+                        <span>{{data()?.url}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Key Technologies:</span>
+                        <span>{{data()?.key_technologies}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Created:</span>
+                        <span>{{data()?.date_created | date: 'dd/MM/yyyy'}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Owner:</span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm w-1/2">
+             <div class="flex gap-8">
+                <div class="flex flex-col gap-2">
+                    <div class="flex">
+                        <span class="w-48 font-bold">Attachments:</span>
+                        <div>
+
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Misc. Notes:</span>
+                        <span>{{data()?.notes}}</span>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Job Orders</h5>
+        <p class="font-normal text-gray-700">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+    </div>
+    <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Contacts</h5>
+        <app-company-detail-contact [companyId]="id()"></app-company-detail-contact>
+    </div>
+</div>
+
+<app-company-modal #companyModal (reloadTable)="getData()"></app-company-modal>

@@ -1,0 +1,24 @@
+<header class="bg-white">
+  <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <div class="flex">
+      <a href="#" class="-m-1.5 p-1.5">
+        <span class="sr-only">Your Company</span>
+        <img class="w-auto" src="applicationLogo.jpg" alt="" />
+      </a>
+    </div>
+    <div class="flex space-x-3">
+        @for (route of routes(); track route.name) {
+            <a routerLink="{{route.link}}" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-700 hover:text-white" routerLinkActive="active-link">{{route.name}}</a>
+        }
+        <!-- <a class="rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer" (click)="menu.toggle($event)">Settings</a>
+        <p-tieredMenu [model]="settingItems" [popup]="true" #menu></p-tieredMenu> -->
+    </div> 
+    <div class="flex lg:flex-col lg:items-end">
+        <p-button label="Log out" link />
+        <div>
+            <span>CATS Administrator admin (dtalent.dev)</span>
+            <span class="font-bold ms-2">Administrator</span>
+        </div>
+    </div>
+  </nav>
+</header>

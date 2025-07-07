@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@plugin "tailwindcss-primeui";
+
+body {
+  @apply bg-white;
+}
+
+:root {
+  --p-inputtext-background: #f5f5f5;
+}
+
+.active-link {
+  @apply bg-sky-500 text-white;
+}
+
+.link-btn .p-button {
+  padding: 0;
+}

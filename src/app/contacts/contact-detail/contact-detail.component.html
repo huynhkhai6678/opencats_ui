@@ -1,0 +1,111 @@
+<div class="mx-auto p-6 lg:px-8">
+    <div class="mt-2">
+        <h2 class="text-2xl font-bold">	Contacts: Contact Details</h2>
+    </div>
+    <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Contact Detail</h5>
+            <div class="flex direction-end mt-2 justify-end">
+                <p-button label="Edit" class="me-2" (onClick)="edit()"/>
+                <p-button label="Delete" severity="danger" (onClick)="delete($event)"/>
+            </div>
+            <div class="flex gap-8">
+                <div class="flex flex-col gap-2 w-1/2">
+                    <div class="flex">
+                        <span class="w-48 font-bold">Name:</span>
+                        <span>{{data()?.first_name}} {{data()?.last_name}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Company:</span>
+                        <p-button label="{{data()?.company?.name}}" class="border" class="link-btn" link routerLink="`/home/companies/{{data()?.company?.company_id}}`"/>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Title:</span>
+                        <span>{{data()?.title}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Department:</span>
+                        <span>{{data()?.department?.name}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Work Phone:</span>
+                        <span>{{data()?.phone_work}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Cell Phone:</span>
+                        <span>{{data()?.phone_cell}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Other Phone:</span>
+                        <span>{{data()?.phone_other}}</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2 w-1/2">
+                    <div class="flex">
+                        <span class="w-48 font-bold">Reports To:</span>
+                        @if (data()?.report_to) {
+                             <a routerLink="{{`/home/contacts/${data()?.reports_to}`}}" class="text-primary hover:cursor-pointer">
+                                {{data()?.report_to.first_name}} {{data()?.report_to.last_name}} ({{data()?.title}})
+                             </a>
+                        } @else {
+                            <span>(None)</span>
+                        }
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">E-Mail:</span>
+                        <a [href]="'mailto:' + data()?.email1" class="text-primary hover:cursor-pointer">
+                            {{data()?.email1}}
+                        </a>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">2nd E-Mail:</span>
+                        <a [href]="'mailto:' + data()?.email2" class="text-primary hover:cursor-pointer">
+                             {{data()?.email2}}
+                        </a>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Address:</span>
+                        <div>
+                            <p>{{data()?.address}}</p>
+                            <p>{{data()?.state}} {{data()?.city}} {{data()?.zip}}</p>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Created:</span>
+                        <span>{{data()?.date_created | date: 'dd/MM/yyyy (hh:mm a)'}} ({{data()?.owner_user.first_name}} {{data()?.owner_user.last_name}})</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Owner:</span>
+                        <span>{{data()?.owner_user.first_name}} {{data()?.owner_user.last_name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm w-1/2">
+             <div class="flex gap-8">
+                <div class="flex flex-col gap-2">
+                    <div class="flex">
+                        <span class="w-48 font-bold">Attachments:</span>
+                        <div>
+
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Misc. Notes:</span>
+                        <span>{{data()?.notes}}</span>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Job Orders</h5>
+        <p class="font-normal text-gray-700">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+    </div>
+    <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Activity</h5>
+        <p class="font-normal text-gray-700">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+    </div>
+</div>
+
+<app-contact-modal #contactModal (reloadTable)="getData()"></app-contact-modal>

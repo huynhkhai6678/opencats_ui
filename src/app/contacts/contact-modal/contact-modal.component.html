@@ -1,0 +1,105 @@
+<p-dialog [header]="header()" [modal]="true" [(visible)]="visible" [style]="{ width: '60rem' }">
+    <form [formGroup]="companyForm" (ngSubmit)="onSubmit(companyForm.valid, companyForm.value)">
+        <div class="flex gap-4">
+            <div class="flex flex-col gap-2 w-1/2">
+                <p-message>Basic Information</p-message>
+                <div class="flex flex-col">
+                    <label for="first_name" class="font-semibold">First Name *</label>
+                    <input pInputText id="first_name" formControlName="first_name" class="flex-auto" autocomplete="off" [invalid]="isInvalid(companyForm, 'first_name')"/>
+                    @if (isInvalid(companyForm, 'first_name')) {
+                        <p-message severity="error" size="small" variant="simple">First name is required.</p-message>
+                    }
+                </div>
+                <div class="flex flex-col">
+                    <label for="last_name" class="font-semibold">Last Name *</label>
+                    <input pInputText id="last_name" formControlName="last_name" class="flex-auto" autocomplete="off" [invalid]="isInvalid(companyForm, 'last_name')"/>
+                    @if (isInvalid(companyForm, 'last_name')) {
+                        <p-message severity="error" size="small" variant="simple">Last name is required.</p-message>
+                    }
+                </div>
+                <div class="flex flex-col">
+                    <label for="title" class="font-semibold">Company *</label>
+                    <p-select [options]="companyList()" formControlName="company_id" optionLabel="name" [filter]="true" filterBy="name" optionValue="company_id" [invalid]="isInvalid(companyForm, 'company_id')" (onChange)="changeCompany($event)"/>
+                    @if (isInvalid(companyForm, 'company_id')) {
+                        <p-message severity="error" size="small" variant="simple">Company is required.</p-message>
+                    }
+                </div>
+                <div class="flex flex-col">
+                    <label for="title" class="font-semibold">Title *</label>
+                    <input pInputText id="title" formControlName="title" class="flex-auto" autocomplete="off" [invalid]="isInvalid(companyForm, 'title')" />
+                    @if (isInvalid(companyForm, 'title')) {
+                        <p-message severity="error" size="small" variant="simple">Title is required.</p-message>
+                    }
+                </div>
+                <div class="flex flex-col">
+                    <label for="title" class="font-semibold">Reports to</label>
+                    <p-select [options]="reportList()" formControlName="reports_to" optionLabel="label"  optionValue="value" />
+                </div>
+                <div class="flex flex-col">
+                    <label for="title" class="font-semibold">Departments</label>
+                    <p-select [options]="departmentList()" formControlName="company_department_id" optionLabel="name" optionValue="company_department_id" [editable]="true"/>
+                </div>
+                <div class="flex flex-col">
+                    <label for="is_hot" class="font-semibold">Hot Contact</label>
+                    <p-checkbox id="is_hot" formControlName="is_hot" [binary]="true" [trueValue]=1  [falseValue]=0/>
+                </div>
+            </div>
+            <div class="flex flex-col gap-2 w-1/2">
+                <p-message>Contact Information</p-message>
+                <div class="flex flex-col">
+                    <label for="email1" class="font-semibold">Email</label>
+                    <input pInputText id="email1" formControlName="email1" class="flex-auto" autocomplete="off" [invalid]="isInvalid(companyForm, 'email1')"/>
+                    @if (isInvalid(companyForm, 'email1')) {
+                        <p-message severity="error" size="small" variant="simple">Invalid email format</p-message>
+                    }
+                </div>
+                <div class="flex flex-col">
+                    <label for="email2" class="font-semibold">2nd E-Mail</label>
+                    <input pInputText id="email2" formControlName="email2" class="flex-auto" autocomplete="off" [invalid]="isInvalid(companyForm, 'email2')"/>
+                    @if (isInvalid(companyForm, 'email2')) {
+                        <p-message severity="error" size="small" variant="simple">Invalid email format</p-message>
+                    }
+                </div>
+                <div class="flex flex-col">
+                    <label for="phone_work" class="font-semibold">Work Phone</label>
+                    <input pInputText id="phone_work" formControlName="phone_work" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex flex-col">
+                    <label for="phone_cell" class="font-semibold">Cell Phone</label>
+                    <input pInputText id="phone_cell" formControlName="phone_cell" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex flex-col">
+                    <label for="phone_other" class="font-semibold">Other Phone</label>
+                    <input pInputText id="phone_other" formControlName="phone_other" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex flex-col">
+                    <label for="address" class="font-semibold">Address</label>
+                    <textarea rows="2" cols="30" pTextarea formControlName="address" autocomplete="off"></textarea>
+                </div>
+                <div class="flex flex-col">
+                    <label for="city" class="font-semibold">City</label>
+                    <input pInputText id="city" formControlName="city" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex flex-col">
+                    <label for="state" class="font-semibold">State</label>
+                    <input pInputText id="state" formControlName="state" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex flex-col">
+                    <label for="zip" class="font-semibold">Postal Code</label>
+                    <input pInputText id="zip" formControlName="zip" class="flex-auto" autocomplete="off" />
+                </div>
+            </div>
+        </div>
+         <div class="columns-1 mt-3">
+            <p-message>Other</p-message>
+            <div class="flex flex-col mt-3">
+                <label for="departments" class="font-semibold">Misc. Notes</label>
+                <textarea rows="5" cols="5" pTextarea formControlName="notes" class="flex-auto" autocomplete="off"></textarea>
+            </div>
+        </div>
+        <div class="flex justify-end gap-2 mt-4">
+            <p-button label="Cancel" severity="secondary" (click)="visible.set(false)" />
+            <p-button label="Save" type="submit" />
+        </div>
+    </form>
+</p-dialog>
