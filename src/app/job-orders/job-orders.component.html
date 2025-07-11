@@ -1,0 +1,119 @@
+<div class="mx-auto p-6 lg:px-8">
+    <div class="mt-2">
+        <h2 class="text-2xl font-bold">Job Order: Home</h2>
+    </div>
+    <div class="flex direction-end mt-2 justify-end">
+        <p-button label="Create Job" (onClick)="create()"/>
+    </div>
+    <div class="mt-2">
+        <p-table
+            [value]="records"
+            [lazy]="true"
+            [paginator]="true"
+            [rows]="10"
+            [totalRecords]="totalRecords"
+            [loading]="loading"
+            (onLazyLoad)="loadData($event)"
+            [globalFilterFields]="['name', 'email']"
+            [rowsPerPageOptions]="[10, 20, 50]"
+        >
+            <ng-template #caption>
+                <div class="flex">
+                    <input pInputText type="text" (input)="onGlobalFilter($event)" placeholder="Search keyword" />
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="joborder_id">
+                        <div class="flex items-center gap-2">
+                            ID
+                            <p-sortIcon field="joborder_id" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="title">
+                         <div class="flex items-center gap-2">
+                            Title
+                            <p-sortIcon field="title" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="companyName">
+                        <div class="flex items-center gap-2">
+                            Company
+                            <p-sortIcon field="companyName" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="type">
+                        <div class="flex items-center gap-2">
+                            Type
+                            <p-sortIcon field="type" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="status">
+                        <div class="flex items-center gap-2">
+                            Status
+                            <p-sortIcon field="status" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="dateCreated">
+                        <div class="flex items-center gap-2">
+                            Created
+                            <p-sortIcon field="dateCreated" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="daysOld">
+                        <div class="flex items-center gap-2">
+                            Age
+                            <p-sortIcon field="daysOld" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="submitted">
+                        <div class="flex items-center gap-2">
+                            Submitted
+                            <p-sortIcon field="submitted" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="pipeline">
+                        <div class="flex items-center gap-2">
+                            Pipeline
+                            <p-sortIcon field="pipeline" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="recruiterFirstName">
+                        <div class="flex items-center gap-2">
+                            Recruiter
+                            <p-sortIcon field="recruiterFirstName" />
+                        </div>
+                    </th>
+                    <th pSortableColumn="ownerFirstName">
+                        <div class="flex items-center gap-2">
+                            Owner
+                            <p-sortIcon field="ownerFirstName" />
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-row>
+                <tr>
+                    <td>{{ row.jobOrderID }}</td>
+                    <td>
+                        <p-button class="link-btn" label="{{row.title}}" link routerLink="{{row.jobOrderID}}"/>
+                    </td>
+                    <td>
+                        <p-button class="link-btn" label="{{row.companyName}}" link routerLink="/home/companies/{{row.companyID}}"/>
+                    </td>
+                    <td>{{ row.type }}</td>
+                    <td>{{ row.status }}</td>
+                    <td>{{ row.dateCreated | date : 'dd/MM/yyyy' }}</td>
+                    <td>{{ row.daysOld }}</td>
+                    <td>{{ row.submitted }}</td>
+                    <td>{{ row.pipeline }}</td>
+                    <td>{{ row.recruiterFirstName }} {{row.recruiterFirstName}}</td>
+                    <td>{{ row.ownerFirstName }} {{row.ownerLastName}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<app-job-order-modal #jobOrderModal (reloadTable)="reloadTable()"></app-job-order-modal>

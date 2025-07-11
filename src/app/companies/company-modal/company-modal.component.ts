@@ -8,7 +8,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { BaseComponent } from '../../base/base.component';
 import { MessageModule } from 'primeng/message';
 import { TextareaModule } from 'primeng/textarea';
-import { ToastModule } from 'primeng/toast';
 import { SelectModule } from 'primeng/select';
 import { SelectOption } from '../../model/select.model';
 
@@ -23,7 +22,6 @@ import { SelectOption } from '../../model/select.model';
     ButtonModule,
     DialogModule,
     TextareaModule,
-    ToastModule,
     SelectModule,
     ReactiveFormsModule
   ],
@@ -52,7 +50,7 @@ export class CompanyModalComponent extends BaseComponent implements OnInit {
       state: [''],
       url: [''],
       zip: [''],
-      departments: [''],
+      company_department_id: [''],
       notes: [''],
       key_technologies : [''],
       is_hot: [0],
@@ -62,7 +60,7 @@ export class CompanyModalComponent extends BaseComponent implements OnInit {
   }
 
   initDataForEdit() {
-    this.formService.getInitData(`${this.url}/${this.id}`).subscribe((response : any) => {
+    this.formService.getInitData(`${this.url}/${this.id()}`).subscribe((response : any) => {
       if(response['data']) {
         this.companyForm.patchValue(response['data']);
 
@@ -88,7 +86,6 @@ export class CompanyModalComponent extends BaseComponent implements OnInit {
   override onSubmit(valid : boolean, value : any) {
     super.onSubmit(valid, value, (message : string) => {
       this.companyForm.reset();
-      console.log(message);
       this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
       this.visible.set(false);
       this.reloadTable.emit(true);

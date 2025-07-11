@@ -24,7 +24,8 @@ export class BaseComponent {
   onSubmit(
     valid : boolean,
     value : any,
-    onSubmitCallback? : (message : string) => void
+    onSubmitCallback? : (message : string) => void,
+    onErrorCallback? : (message : string) => void
   ) {
     this.isSubmitted = true;
     if (!valid) {
@@ -32,14 +33,16 @@ export class BaseComponent {
     }
 
     this.formService.submitForm(this.url, this.id(), value).subscribe({
-      next: (res : any) => {
+      next: (res) => {
         this.isSubmitted = false;
         if (onSubmitCallback) {
           onSubmitCallback(res.message);
         }
       },
-      error: (error) => {
-        console.log(error);
+      error: (res) => {
+        if (onErrorCallback) {
+          onErrorCallback(res.error.message);
+        }
       }
     })
   }
@@ -62,7 +65,6 @@ export class BaseComponent {
       accept: () => {
         this.apiService.delete(`${this.url}/${this.id()}`).subscribe((res : any) => {
           if (onSubmitCallback) {
-            console.log('lllll');
             onSubmitCallback(res.message);
           }
         })

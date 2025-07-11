@@ -1,0 +1,83 @@
+<div class="mx-auto p-6 lg:px-8">
+    <div class="mt-2">
+        <h2 class="text-2xl font-bold">Candidates: Home</h2>
+    </div>
+    <div class="flex direction-end mt-2 justify-end">
+        <p-button label="Create Candidate" (onClick)="create()"/>
+    </div>
+    <div class="mt-2">
+        <p-table
+            [value]="records"
+            [lazy]="true"
+            [paginator]="true"
+            [rows]="10"
+            [totalRecords]="totalRecords"
+            [loading]="loading"
+            (onLazyLoad)="loadData($event)"
+            [globalFilterFields]="['name', 'email']"
+            [rowsPerPageOptions]="[10, 20, 50]"
+        >
+            <ng-template #caption>
+                <div class="flex">
+                    <input pInputText type="text" (input)="onGlobalFilter($event)" placeholder="Search keyword" />
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>
+                        
+                    </th>
+                    <th pSortableColumn="full_name">
+                        <div class="flex items-center gap-2">
+                            Full Name
+                            <p-sortIcon field="full_name"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="key_skills">
+                        <div class="flex items-center gap-2">
+                             Key Skills
+                            <p-sortIcon field="key_skills"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="date_modified">
+                        <div class="flex items-center gap-2">
+                            Modified
+                            <p-sortIcon field="date_modified"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="desired_pay">
+                        <div class="flex items-center gap-2">
+                              Desired Pay
+                            <p-sortIcon field="desired_pay"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="city">
+                        <div class="flex items-center gap-2">
+                            City
+                            <p-sortIcon field="city"></p-sortIcon>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-row>
+                <tr>
+                    <td>
+                        @if (row.attachmentPresent) {
+                            <fa-icon [icon]="faPaperclip"></fa-icon>
+                        }
+                    </td>
+                    <td>
+                        <p-button label="{{row.full_name}}" link routerLink="{{row.candidate_id}}"/>
+                    </td>
+                    <td>{{ row.key_skills }}</td>
+                    <td>{{ row.date_modified | date : "dd/MM/yyyy" }}</td>
+                    <td>{{ row.desired_pay }}</td>
+                    <td>{{ row.city }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<app-candidate-modal #candidateModal (reloadTable)="reloadTable()"></app-candidate-modal>

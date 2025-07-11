@@ -36,7 +36,7 @@ export class FormService {
     }
   }
 
-  submitFormWithImage(
+  submitFormWithFile(
     url: string,
     id: number | null,
     value: any,
@@ -46,5 +46,18 @@ export class FormService {
     } else {
       return this.apiService.postFileWithParams(url, value);
     }
+  }
+
+  submitAttachmentFile(
+    id: number,
+    type: number,
+    file: any
+  ): Observable<any> {
+
+    return this.apiService.postFileWithParams(`attachments`, {
+      data_item_id: id,
+      data_type_id: type,
+      file
+    });
   }
 }

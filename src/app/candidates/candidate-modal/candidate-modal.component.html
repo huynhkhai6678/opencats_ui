@@ -1,0 +1,130 @@
+<p-dialog [header]="header()" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }">
+    <form [formGroup]="candidateForm" (ngSubmit)="onSubmit(candidateForm.valid, candidateForm.value)">
+        <p-message>Basic Information</p-message>
+        <div class="flex gap-8">
+            <div class="flex flex-col gap-2 w-1/2 mt-2">
+                <p-message class="uppercase">Manually Enter Information</p-message>
+                <div class="flex flex-col">
+                    <label for="first_name" class="font-semibold">First name:*</label>
+                    <input pInputText id="first_name" formControlName="first_name" class="flex-auto" autocomplete="off" [invalid]="isInvalid(candidateForm, 'first_name')"/>
+                    @if (isInvalid(candidateForm, 'first_name')) {
+                        <p-message severity="error" size="small" variant="simple">First name is required.</p-message>
+                    }
+                </div>
+                <div class="flex flex-col">
+                    <label for="last_name" class="font-semibold">Last name:*</label>
+                    <input pInputText id="last_name" formControlName="last_name" class="flex-auto" autocomplete="off" [invalid]="isInvalid(candidateForm, 'last_name')"/>
+                    @if (isInvalid(candidateForm, 'last_name')) {
+                        <p-message severity="error" size="small" variant="simple">Last name is required.</p-message>
+                    }
+                </div>
+                <div class="flex flex-col">
+                    <label for="web_site" class="font-semibold">Web site:</label>
+                    <input pInputText id="web_site" formControlName="web_site" class="flex-auto" autocomplete="off"/>
+                </div>
+                <div class="flex flex-col">
+                    <label for="phone_work" class="font-semibold">Phone:*</label>
+                    <input pInputText id="phone_work" formControlName="phone_work" class="flex-auto" autocomplete="off" [invalid]="isInvalid(candidateForm, 'phone_work')"/>
+                    @if (isInvalid(candidateForm, 'phone_work')) {
+                        <p-message severity="error" size="small" variant="simple">Phone is required.</p-message>
+                    }
+                </div>
+                <div class="flex flex-col">
+                    <label for="address" class="font-semibold">Address:</label>
+                    <textarea rows="2" cols="30" pTextarea formControlName="address" autocomplete="off"></textarea>
+                </div>
+                <div class="flex flex-col">
+                    <label for="city" class="font-semibold">City:</label>
+                    <input pInputText id="city" formControlName="city" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex flex-col">
+                    <label for="state" class="font-semibold">State:</label>
+                    <input pInputText id="state" formControlName="state" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex flex-col">
+                    <label for="zip" class="font-semibold">Postal Code:</label>
+                    <input pInputText id="zip" formControlName="zip" class="flex-auto" autocomplete="off" />
+                </div>
+            </div>
+            @if (!this.id()) {
+                <div class="flex flex-col gap-2 w-1/2 mt-2">
+                    <p-message class="uppercase">Import resume</p-message>
+                    <p-fileupload #fu mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload" accept="application/pdf" (onSelect)="onUpload($event)" />
+                    <div class="flex flex-col">
+                        <label for="file_content" class="font-semibold">Misc. Notes</label>
+                        <textarea rows="20" cols="30" pTextarea formControlName="file_content" autocomplete="off"></textarea>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="flex flex-col mt-2">
+            <p-message>Other</p-message>
+            <div class="columns-2 mt-2">
+                 <div class="flex flex-col">
+                    <label for="job_title" class="font-semibold">Job Title:*</label>
+                    <input pInputText id="job_title" formControlName="job_title" class="flex-auto" autocomplete="off" [invalid]="isInvalid(candidateForm, 'job_title')"/>
+                    @if (isInvalid(candidateForm, 'job_title')) {
+                        <p-message severity="error" size="small" variant="simple">Job title is required.</p-message>
+                    }
+                </div>
+                <div class="flex flex-col">
+                    <label for="exp_years" class="font-semibold">Year of Experiences:</label>
+                    <input pInputText id="exp_years" formControlName="exp_years" class="flex-auto" autocomplete="off"/>
+                </div>
+                <div class="flex flex-col">
+                    <label for="can_relocate" class="font-semibold">Can Relocate</label>
+                    <div class="w-full relative">
+                        <p-checkbox id="can_relocate" class="h-[42px]!" formControlName="can_relocate" [binary]="true" [trueValue]=1  [falseValue]=0/>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label for="date_available" class="font-semibold">Date Available:</label>
+                    <div class="w-full relative">
+                        <p-datepicker class="w-full" id="date_available" formControlName="date_available" />
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label for="current_employer" class="font-semibold">Current Employer:</label>
+                    <input pInputText id="current_employer" formControlName="current_employer" class="flex-auto" autocomplete="off"/>
+                </div>
+                <div class="flex flex-col">
+                    <label for="current_pay" class="font-semibold">Current Pay:</label>
+                    <input pInputText id="current_pay" formControlName="current_pay" class="flex-auto" autocomplete="off"/>
+                </div>
+                <div class="flex flex-col">
+                    <label for="desired_pay" class="font-semibold">Desired Pay:</label>
+                    <input pInputText id="desired_pay" formControlName="desired_pay" class="flex-auto" autocomplete="off"/>
+                </div>
+                <div class="flex flex-col">
+                    <label for="language" class="font-semibold">Language:</label>
+                    <div class="w-full relative">
+                        <p-multiselect class="w-full" [options]="languages()" formControlName="language" optionLabel="name" optionValue="name" display="chip" />
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label for="source" class="font-semibold">Source:</label>
+                    <div class="w-full relative">
+                        <p-select class="w-full" [options]="sources()" formControlName="source" optionLabel="name" optionValue="name" [editable]="true"/>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label for="key_skills" class="font-semibold">Key Skills:*</label>
+                    <input pInputText id="key_skills" formControlName="key_skills" class="flex-auto" autocomplete="off"/>
+                    @if (isInvalid(candidateForm, 'key_skills')) {
+                        <p-message severity="error" size="small" variant="simple">Key Skill is required.</p-message>
+                    }
+                </div>
+            </div>
+            <div class="columns-1 mt-2">
+                <div class="flex flex-col">
+                    <label for="notes" class="font-semibold">Misc. Notes</label>
+                    <textarea rows="2" cols="30" pTextarea formControlName="notes" autocomplete="off"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-end gap-2 mt-4">
+            <p-button label="Cancel" severity="secondary" (click)="visible.set(false)" />
+            <p-button label="Save" type="submit" />
+        </div>
+    </form>
+</p-dialog>

@@ -47,6 +47,38 @@ export const homeRoutes: Routes = [
         }
       },
       {
+        path: 'job-orders',
+        loadComponent: () => import('../job-orders/job-orders.component').then(mod => mod.JobOrdersComponent),
+        canActivate: [],
+        data: { 
+          title: 'messages.dashboard' 
+        }
+      },
+      {
+        path: 'job-orders/:id',
+        loadComponent: () => import('../job-orders/job-order-detail/job-order-detail.component').then(mod => mod.JobOrderDetailComponent),
+        canActivate: [],
+        data: { 
+          title: 'messages.dashboard' 
+        }
+      },
+      {
+        path: 'candidates',
+        loadComponent: () => import('../candidates/candidates.component').then(mod => mod.CandidatesComponent),
+        canActivate: [],
+        data: { 
+          title: 'Dtalent - Candidates' 
+        }
+      },
+      {
+        path: 'candidates/:id',
+        loadComponent: () => import('../candidates/candidate-detail/candidate-detail.component').then(mod => mod.CandidateDetailComponent),
+        canActivate: [],
+        data: { 
+          title: 'Dtalent - Candidates' 
+        }
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'

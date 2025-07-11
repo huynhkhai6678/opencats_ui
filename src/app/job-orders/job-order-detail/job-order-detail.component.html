@@ -1,0 +1,144 @@
+<div class="mx-auto p-6 lg:px-8">
+    <div class="mt-2">
+        <h2 class="text-2xl font-bold">Job Orders: Job Order Details</h2>
+    </div>
+    <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Job Order Detail</h5>
+            <div class="flex direction-end mt-2 justify-end">
+                <p-button label="Edit" class="me-2" (onClick)="edit()"/>
+                <p-button label="Delete" severity="danger" (onClick)="delete($event)"/>
+            </div>
+            <div class="flex gap-8">
+                <div class="flex flex-col gap-2 w-1/2">
+                    <div class="flex">
+                        <span class="w-48 font-bold">Title:</span>
+                        <span>{{data()?.title}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Company:</span>
+                        <p-button label="{{data()?.company?.name}}" class="border" class="link-btn" link routerLink="`/home/companies/{{data()?.company?.company_id}}`"/>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Department:</span>
+                        <span>{{data()?.department_name}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">CATS Job Id:</span>
+                        <span>{{data()?.joborder_id}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Company Job Id:</span>
+                        <span>{{data()?.client_job_id}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Contact Name:</span>
+                        <span>{{data()?.contact_name}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Contact Phone:</span>
+                        <span>{{data()?.contact_phone}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Contact Email:</span>
+                        <span>{{data()?.contact_email}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Location:</span>
+                        <span>{{data()?.city}}, {{data()?.state}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Max Rate:</span>
+                        <span>{{data()?.rate_max}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Salary:</span>
+                        <span>
+                            {{data()?.salary}}
+                        </span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Start Date:</span>
+                        <span>{{data()?.start_date | date : 'dd/MM/yyyy'}}</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2 w-1/2">
+                    <div class="flex">
+                        <span class="w-48 font-bold">Duration:</span>
+                        <span>{{data()?.duration}} </span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Openings:</span>
+                        <span>{{data()?.openings}} </span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Job Category:</span>
+                        <span>{{data()?.job_category}} </span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Type:</span>
+                        <span>{{data()?.type}} </span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Status:</span>
+                        <span>{{data()?.status}} </span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Pipeline:</span>
+                        <span>{{data()?.pipeline}} </span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Submitted:</span>
+                        <span>{{data()?.submitted}} </span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Days Old:</span>
+                        <span>{{data()?.day_olds}} </span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Created:</span>
+                        <span>{{data()?.date_created | date: 'dd/MM/yyyy (hh:mm a)'}} ({{data()?.owner_first_name}} {{data()?.owner_last_name}})</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Recruiter:</span>
+                        <span>{{data()?.recruiter_first_name}} {{data()?.recruiter_last_name}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Owner:</span>
+                        <span>{{data()?.owner_first_name}} {{data()?.owner_last_name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm w-8/12">
+             <div class="flex gap-8">
+                <div class="flex flex-col gap-2">
+                    <div class="flex">
+                        <span class="w-48 font-bold">Attachments:</span>
+                        <div class="w-full">
+                            <app-attachment [id]="id()" [type]="url" [typeNumber]=400></app-attachment>
+                        </div>
+                    </div>
+                     <div class="flex">
+                        <span class="w-48 font-bold">Brief Description:</span>
+                        <span>{{data()?.brief_description}}</span>
+                    </div>
+                     <div class="flex">
+                        <span class="w-48 font-bold">Description:</span>
+                        <div class="description-review" [innerHTML]="data()?.description"></div>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Internal Notes:</span>
+                        <span>{{data()?.notes}}</span>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Candidate Pipeline</h5>
+        <p class="font-normal text-gray-700">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+    </div>
+</div>
+
+<app-job-order-modal #jobOrderModal (reloadTable)="getData()"></app-job-order-modal>

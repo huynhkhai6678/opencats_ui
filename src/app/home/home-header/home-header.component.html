@@ -14,11 +14,19 @@
         <p-tieredMenu [model]="settingItems" [popup]="true" #menu></p-tieredMenu> -->
     </div> 
     <div class="flex lg:flex-col lg:items-end">
-        <p-button label="Log out" link />
-        <div>
-            <span>CATS Administrator admin (dtalent.dev)</span>
-            <span class="font-bold ms-2">Administrator</span>
-        </div>
+        <a class="rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer" (click)="menu.toggle($event)">
+          <fa-icon [icon]="faUser"></fa-icon>
+        </a>
+        <p-menu [model]="profileMenus" [popup]="true" #menu>
+            <ng-template #start>
+              <div class="flex flex-col border-b-1 p-2">
+                  <span class="font-bold ms-2">{{user.access_role}}</span>
+                  <span class="ms-2">{{user.first_name}} {{user.last_name}} {{user.user_name}}</span>
+              </div>
+            </ng-template>
+        </p-menu>
     </div>
   </nav>
 </header>
+
+<app-home-header-change-password #changePasswordModal></app-home-header-change-password>

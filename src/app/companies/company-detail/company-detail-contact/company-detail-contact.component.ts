@@ -31,7 +31,7 @@ export class CompanyDetailContactComponent {
       if (this.companyId() === 0) {
         return;
       }
-      return `${this.apiUrl}contacts/companies/${this.companyId()}`;
+      return `${this.apiUrl}companies/${this.companyId()}/contacts`;
     },
     {
       parse: (response : any) => response.data

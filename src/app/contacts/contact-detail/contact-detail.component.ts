@@ -5,11 +5,15 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Contact } from '../company.model';
 import { DatePipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { ContactDetailJobOrderComponent } from './contact-detail-job-order/contact-detail-job-order.component';
+import { AttachmentComponent } from '../../shared/attachment/attachment.component';
 
 @Component({
   selector: 'app-contact-detail',
   imports: [
     ContactModalComponent,
+    ContactDetailJobOrderComponent,
+    AttachmentComponent,
     DatePipe,
     RouterLink,
     ButtonModule

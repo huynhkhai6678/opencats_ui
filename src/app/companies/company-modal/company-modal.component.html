@@ -4,7 +4,7 @@
         <div class="columns-2 mt-3">
             <div class="flex flex-col">
                 <label for="name" class="font-semibold">Company Name</label>
-                <input pInputText id="name" formControlName="name" class="flex-auto" autocomplete="off" />
+                <input pInputText id="name" formControlName="name" class="flex-auto" autocomplete="off" [invalid]="isInvalid(companyForm, 'name')"/>
                 @if (isInvalid(companyForm, 'name')) {
                     <p-message severity="error" size="small" variant="simple">Name is required.</p-message>
                 }
@@ -50,8 +50,8 @@
                 <input pInputText id="url" formControlName="url" class="flex-auto" autocomplete="off" />
             </div>
             <div class="flex flex-col">
-                <label for="departments" class="font-semibold">Departments</label>
-                <input pInputText id="departments" formControlName="departments" class="flex-auto" autocomplete="off" />
+                <label for="company_department_id" class="font-semibold">Departments</label>
+                <input pInputText id="company_department_id" formControlName="company_department_id" class="flex-auto" autocomplete="off" />
             </div>
         </div>
         <div class="columns-1 mt-3">
@@ -83,8 +83,8 @@
         </div>
         <div class="columns-1 mt-3">
             <div class="flex flex-col">
-                <label for="departments" class="font-semibold">Misc. Notes</label>
-                <p-select [options]="ownerList()" formControlName="company_department_id" optionLabel="name" optionValue="company_department_id" />
+                <label for="notes" class="font-semibold">Misc. Notes</label>
+                <input pInputText id="url" formControlName="notes" class="flex-auto" autocomplete="off" />
             </div>
         </div>
         <div class="flex justify-end gap-2 mt-4">

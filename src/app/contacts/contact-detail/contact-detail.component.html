@@ -82,13 +82,13 @@
                 </div>
             </div>
         </div>
-        <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm w-1/2">
+        <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm w-8/12">
              <div class="flex gap-8">
                 <div class="flex flex-col gap-2">
                     <div class="flex">
                         <span class="w-48 font-bold">Attachments:</span>
-                        <div>
-
+                        <div class="w-full">
+                            <app-attachment [id]="id()" [type]="url" [typeNumber]=300></app-attachment>
                         </div>
                     </div>
                     <div class="flex">
@@ -100,7 +100,7 @@
     </div>
     <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Job Orders</h5>
-        <p class="font-normal text-gray-700">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+        <app-contact-detail-job-order [companyId]="id()"></app-contact-detail-job-order>
     </div>
     <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Activity</h5>

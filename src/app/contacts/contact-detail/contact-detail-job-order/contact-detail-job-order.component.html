@@ -1,1 +1,116 @@
-<p>contact-detail-job-order works!</p>
+@let companyList = jobOrders.value() || [];
+
+<p-table
+    [value]="companyList"
+    [lazy]="false"
+    [paginator]="false"
+    [rowsPerPageOptions]="[10, 20, 50]"
+>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="joborder_id">
+                <div class="flex items-center gap-2">
+                    ID
+                    <p-sortIcon field="joborder_id" />
+                </div>
+            </th>
+            <th pSortableColumn="title">
+                <div class="flex items-center gap-2">
+                    Title
+                    <p-sortIcon field="title" />
+                </div>
+            </th>
+            <th pSortableColumn="type">
+                <div class="flex items-center gap-2">
+                    Type
+                    <p-sortIcon field="type" />
+                </div>
+            </th>
+            <th pSortableColumn="status">
+                <div class="flex items-center gap-2">
+                    Status
+                    <p-sortIcon field="status" />
+                </div>
+            </th>
+            <th pSortableColumn="date_created">
+                <div class="flex items-center gap-2">
+                    Created
+                    <p-sortIcon field="date_created" />
+                </div>
+            </th>
+            <th pSortableColumn="date_modified">
+                <div class="flex items-center gap-2">
+                    Modified
+                    <p-sortIcon field="date_modified" />
+                </div>
+            </th>
+            <th pSortableColumn="start_date">
+                <div class="flex items-center gap-2">
+                    Start
+                    <p-sortIcon field="start_date" />
+                </div>
+            </th>
+            <th pSortableColumn="start_date">
+                <div class="flex items-center gap-2">
+                    Age
+                    <p-sortIcon field="start_date" />
+                </div>
+            </th>
+            <th pSortableColumn="date_modified">
+                <div class="flex items-center gap-2">
+                    Submitted
+                    <p-sortIcon field="date_modified" />
+                </div>
+            </th>
+            <th pSortableColumn="date_modified">
+                <div class="flex items-center gap-2">
+                    Pipeline
+                    <p-sortIcon field="date_modified" />
+                </div>
+            </th>
+            <th pSortableColumn="date_modified">
+                <div class="flex items-center gap-2">
+                    Recruiter
+                    <p-sortIcon field="date_modified" />
+                </div>
+            </th>
+            <th pSortableColumn="date_modified">
+                <div class="flex items-center gap-2">
+                    Owner
+                    <p-sortIcon field="date_modified" />
+                </div>
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-row>
+        <tr>
+            <td>
+                {{row.joborder_id }}
+            </td>
+            <td>
+                <p-button class="link-btn" label="{{row.title}}" link routerLink="/home/job-orders/{{row.joborder_id}}"/>
+            </td>
+            <td>{{ row.type }}</td>
+            <td>{{ row.status }}</td>
+            <td>{{ row.date_created | date : 'dd/MM/yyyy' }}</td>
+            <td>{{ row.date_modified | date : 'dd/MM/yyyy' }}</td>
+            <td>{{ row.start_date | date : 'dd/MM/yyyy' }}</td>
+            <td>{{row.daysOld}}</td>
+            <td>{{row.submitted}}</td>
+            <td>{{row.pipeline}}</td>
+            <td>{{row.recruiter_first_name}} {{row.recruiter_last_name}}</td>
+            <td>{{row.owner_first_name}} {{row.owner_last_name}}</td>
+            <td>
+                <div class="flex gap-4">
+                    <fa-icon [icon]="faPencilAlt" class="hover:cursor-pointer" (click)="openEditJobOrder(row.joborder_id)"></fa-icon>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<app-job-order-modal #jobOrderModal (reloadTable)="jobOrders.reload()"></app-job-order-modal>

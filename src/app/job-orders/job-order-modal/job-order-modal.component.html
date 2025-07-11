@@ -1,0 +1,184 @@
+<p-dialog [header]="header()" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }">
+    <form [formGroup]="jobOrderForm" (ngSubmit)="onSubmit(jobOrderForm.valid, jobOrderForm.value)">
+        <p-message>Add a new job order to the system</p-message>
+        <div class="columns-2 mt-3">
+            <div class="flex flex-col">
+                <label for="title" class="font-semibold">Title</label>
+                <input pInputText id="title" formControlName="title" class="flex-auto" autocomplete="off" [invalid]="isInvalid(jobOrderForm, 'title')"/>
+                @if (isInvalid(jobOrderForm, 'title')) {
+                    <p-message severity="error" size="small" variant="simple">Name is required.</p-message>
+                }
+            </div>
+            <div class="flex flex-col">
+                <label for="start_date" class="font-semibold">Start Date</label>
+                <div class="w-full relative">
+                    <p-datepicker class="w-full" id="start_date" formControlName="start_date" [invalid]="isInvalid(jobOrderForm, 'start_date')"/>
+                </div>
+                @if (isInvalid(jobOrderForm, 'start_date')) {
+                    <p-message severity="error" size="small" variant="simple">Start date is required.</p-message>
+                }
+            </div>
+        </div>
+        <div class="columns-2 mt-3">
+            <div class="flex flex-col">
+                <label for="company_id" class="font-semibold">Company</label>
+                <div class="w-full relative">
+                    <p-select 
+                        class="w-full"
+                        [options]="companies()" 
+                        formControlName="company_id" 
+                        optionLabel="name" 
+                        optionValue="company_id" 
+                    />
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <label for="duration" class="font-semibold">Duration</label>
+                <input pInputText id="duration" formControlName="duration" class="flex-auto" autocomplete="off" />
+            </div>
+        </div>
+        <div class="columns-2 mt-3">
+            <div class="flex flex-col">
+                <label for="address" class="font-semibold">Department</label>
+                <div class="w-full relative">
+                    <p-select 
+                        class="w-full" 
+                        [options]="departments()" 
+                        formControlName="company_department_id" 
+                        optionLabel="name" 
+                        optionValue="company_department_id" 
+                        [editable]="true"
+                    />
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <label for="job_category" class="font-semibold">Job category</label>
+                <div class="w-full relative">
+                    <p-select 
+                        class="w-full" 
+                        [options]="categories()" 
+                        formControlName="job_category" 
+                        optionLabel="job_category_name" 
+                        optionValue="job_category_name" 
+                        [editable]="true"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="columns-2 mt-3">
+            <div class="flex flex-col">
+                <label for="contact_id" class="font-semibold">Contact</label>
+                <div class="w-full relative">
+                    <p-select 
+                        class="w-full" 
+                        [options]="contactList()" 
+                        formControlName="contact_id" 
+                        optionLabel="label" 
+                        optionValue="name" 
+                        [editable]="true"
+                    />
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <label for="rate_max" class="font-semibold">Maximum Rate</label>
+                <input pInputText id="rate_max" formControlName="rate_max" class="flex-auto" autocomplete="off" />
+            </div>
+        </div>
+        <div class="columns-2 mt-3">
+            <div class="flex flex-col">
+                <label for="city" class="font-semibold">City</label>
+                <input pInputText id="city" formControlName="city" class="flex-auto" autocomplete="off" />
+            </div>
+            <div class="flex flex-col">
+                <label for="type" class="font-semibold">Type</label>
+                <div class="w-full relative">
+                    <p-select 
+                        class="w-full"
+                        [options]="types()" 
+                        formControlName="type" 
+                        optionLabel="label" 
+                        optionValue="value" 
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="columns-2 mt-3">
+            <div class="flex flex-col">
+                <label for="state" class="font-semibold">State</label>
+                <input pInputText id="state" formControlName="state" class="flex-auto" autocomplete="off" />
+            </div>
+            <div class="flex flex-col">
+                <label for="salary" class="font-semibold">Salary</label>
+                <input pInputText id="salary" formControlName="salary" class="flex-auto" autocomplete="off" />
+            </div>
+        </div>
+        <div class="columns-2 mt-3">
+            <div class="flex flex-col">
+                <label for="recruiter" class="font-semibold">Recruiter</label>
+                <div class="w-full relative">
+                    <p-select 
+                        class="w-full"
+                        [options]="users()" 
+                        formControlName="recruiter" 
+                        optionLabel="label" 
+                        optionValue="value" 
+                    />
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <label for="openings" class="font-semibold">Openings</label>
+                <input pInputText id="openings" formControlName="openings" class="flex-auto" autocomplete="off" />
+            </div>
+        </div>
+        <div class="columns-2 mt-3">
+            <div class="flex flex-col">
+                <label for="owner" class="font-semibold">Owner</label>
+                <div class="w-full relative">
+                    <p-select 
+                        class="w-full"
+                        [options]="users()" 
+                        formControlName="owner" 
+                        optionLabel="label" 
+                        optionValue="value" 
+                    />
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <label for="client_job_id" class="font-semibold">Company Job Id</label>
+                <input pInputText id="client_job_id" formControlName="client_job_id" class="flex-auto" autocomplete="off" />
+            </div>
+        </div>
+        <div class="columns-2 mt-3">
+            <div class="flex flex-col">
+                <label for="commission" class="font-semibold">Commission</label>
+                 <input pInputText id="commission" formControlName="commission" class="flex-auto" autocomplete="off" />
+            </div>
+            <div class="flex flex-col">
+                <label for="is_hot" class="font-semibold">Hot</label>
+                <p-checkbox id="is_hot" formControlName="is_hot" [binary]="true" [trueValue]=1 [falseValue]=0/>
+            </div>
+        </div>
+        <div class="columns-1 mt-3">
+            <div class="flex flex-col">
+                <label for="brief_description" class="font-semibold">Brief Description</label>
+                <textarea rows="2" cols="30" pTextarea formControlName="brief_description" autocomplete="off"></textarea>
+            </div>
+        </div>
+        <div class="columns-1 mt-3">
+            <div class="flex flex-col">
+                <label for="description" class="font-semibold">Description</label>
+                <p-editor formControlName="description" [style]="{ height: '200px' }" />
+            </div>
+        </div>
+        <div class="columns-1 mt-3">
+            <div class="flex flex-col">
+                <label for="notes" class="font-semibold">Misc. Notes</label>
+                <textarea rows="2" cols="30" pTextarea formControlName="notes" autocomplete="off"></textarea>
+            </div>
+        </div>
+        <div class="flex justify-end gap-2 mt-4">
+            <p-button label="Cancel" severity="secondary" (click)="visible.set(false)" />
+            <p-button label="Save" type="submit" />
+        </div>
+    </form>
+</p-dialog>

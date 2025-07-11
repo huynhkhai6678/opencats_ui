@@ -1,21 +1,34 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { TieredMenuModule } from 'primeng/tieredmenu';
+import { MenuModule } from 'primeng/menu';
+import { AuthService } from '../../services/auth.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { HomeHeaderChangePasswordComponent } from './home-header-change-password/home-header-change-password.component';
 
 @Component({
   selector: 'app-home-header',
   imports: [
-    TieredMenuModule,
+    FontAwesomeModule,
+    MenuModule,
     RouterLinkActive,
     RouterLink,
-    ButtonModule
+    ButtonModule,
+    HomeHeaderChangePasswordComponent
   ],
   templateUrl: './home-header.component.html',
   styleUrl: './home-header.component.scss'
 })
 export class HomeHeaderComponent implements OnInit {
+  faUser = faUser;
+  authService = inject(AuthService);
+  
+  @ViewChild(HomeHeaderChangePasswordComponent) changePasswordModal!: HomeHeaderChangePasswordComponent;
+
+  readonly user = this.authService.getUser();
+
   allRoutes = [
     {
       name: "Dashboard",
@@ -63,21 +76,33 @@ export class HomeHeaderComponent implements OnInit {
     }
   ];
 
-  settingItems: MenuItem[] = [
+  profileMenus: MenuItem[] = [
     {
-      label: 'Home',
-      routerLink: ['/home']
+      items: [
+        {
+          label: 'Change Password',
+          command: () => this.changePassword(),
+        },
+        {
+          label: 'Log out',
+          command: () => this.logout(),
+        }
+      ]
     },
-    {
-      label: 'Contact',
-      routerLink: ['/contact']
-    }
   ];
   
   routes = signal<HomeRouterLink[]>([]);
 
   ngOnInit(): void {
     this.routes.set(this.allRoutes);
+  }
+
+  changePassword() {
+    this.changePasswordModal.visible.set(true);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
 

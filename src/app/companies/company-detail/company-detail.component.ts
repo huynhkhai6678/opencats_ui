@@ -1,6 +1,5 @@
 import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { ApiService } from '../../services/api.service';
 import { Company } from './company.model';
 import { DatePipe } from '@angular/common';
 import { CompanyDetailContactComponent } from './company-detail-contact/company-detail-contact.component';
@@ -9,6 +8,8 @@ import { CompanyModalComponent } from '../company-modal/company-modal.component'
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { BaseComponent } from '../../base/base.component';
+import { CompanyDetailJobOrderComponent } from './company-detail-job-order/company-detail-job-order.component';
+import { AttachmentComponent } from '../../shared/attachment/attachment.component';
 
 @Component({
   selector: 'app-company-detail',
@@ -19,7 +20,9 @@ import { BaseComponent } from '../../base/base.component';
     CompanyModalComponent,
     ConfirmDialogModule,
     ToastModule,
-    CompanyDetailContactComponent
+    AttachmentComponent,
+    CompanyDetailContactComponent,
+    CompanyDetailJobOrderComponent
   ],
   templateUrl: './company-detail.component.html',
   styleUrl: './company-detail.component.scss'

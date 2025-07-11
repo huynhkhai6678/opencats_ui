@@ -9,36 +9,52 @@
     <ng-template pTemplate="header">
         <tr>
             <th pSortableColumn="first_name">
-                First Name
-                <p-sortIcon field="first_name"></p-sortIcon>
+                <div class="flex items-center gap-2">
+                    First Name
+                    <p-sortIcon field="first_name" />
+                </div>
             </th>
             <th pSortableColumn="last_name">
-                Last Name
-                <p-sortIcon field="last_name"></p-sortIcon>
+                <div class="flex items-center gap-2">
+                     Last Name
+                    <p-sortIcon field="last_name" />
+                </div>
             </th>
             <th pSortableColumn="title">
-                Title
-                <p-sortIcon field="title"></p-sortIcon>
+                <div class="flex items-center gap-2">
+                    Title
+                    <p-sortIcon field="title" />
+                </div>
             </th>
             <th pSortableColumn="department">
-                Department
-                <p-sortIcon field="department"></p-sortIcon>
+                <div class="flex items-center gap-2">
+                    Department
+                    <p-sortIcon field="department" />
+                </div>
             </th>
             <th pSortableColumn="phone_work">
-                Work Phone
-                <p-sortIcon field="phone_work"></p-sortIcon>
+                <div class="flex items-center gap-2">
+                     Work Phone
+                    <p-sortIcon field="phone_work" />
+                </div>
             </th>
             <th pSortableColumn="phone_cell">
-                Cell Phone
-                <p-sortIcon field="phone_cell"></p-sortIcon>
+                <div class="flex items-center gap-2">
+                     Work Phone
+                    <p-sortIcon field="phone_cell" />
+                </div>
             </th>
             <th pSortableColumn="date_created">
-                Created
-                <p-sortIcon field="date_created"></p-sortIcon>
+                <div class="flex items-center gap-2">
+                    Created
+                    <p-sortIcon field="date_created" />
+                </div>
             </th>
             <th pSortableColumn="date_modified">
-                Owner
-                <p-sortIcon field="date_modified"></p-sortIcon>
+                <div class="flex items-center gap-2">
+                    Created
+                    <p-sortIcon field="date_modified" />
+                </div>
             </th>
             <th>
                 Action
@@ -48,8 +64,12 @@
 
     <ng-template pTemplate="body" let-row>
         <tr>
-            <td><p-button label="{{row.first_name}}" link routerLink="{{row.contact_id}}"/></td>
-            <td><p-button label="{{row.last_name}}" link routerLink="{{row.contact_id}}"/></td>
+            <td>
+                <p-button class="link-btn" label="{{row.first_name}}" link routerLink="{{row.contact_id}}"/>
+            </td>
+            <td>
+                <p-button class="link-btn" label="{{row.last_name}}" link routerLink="{{row.contact_id}}"/>
+            </td>
             <td>{{ row.title }}</td>
             <td>{{ row.department }}</td>
             <td>{{ row.phone_work }}</td>

@@ -13,6 +13,11 @@ export const routes: Routes = [
         title: 'Testing' 
     },
     { 
+        path: 'attachments/:attachmentId/:attachmentHash', 
+        loadComponent: () => import('./attachments/attachments.component').then(mod => mod.AttachmentsComponent),
+        title: 'Dtalent - Attachment' 
+    },
+    { 
         path: 'forbidden', 
         loadComponent: () => import('./error/forbidden/forbidden.component').then(mod => mod.ForbiddenComponent) 
     },
