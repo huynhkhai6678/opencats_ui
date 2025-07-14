@@ -1,0 +1,6 @@
+export const DATA_ITEM_TYPE = {
+    CANDIDATE : 100,
+    COMPANY: 200,
+    CONTACT: 300,
+    JOB_ORDER: 400
+}

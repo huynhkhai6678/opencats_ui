@@ -1,0 +1,38 @@
+<p-dialog [header]="header()" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }">
+    <form [formGroup]="activityForm" (ngSubmit)="onSubmit(activityForm.valid, activityForm.value)">
+        <div class="columns-1 mt-3">
+            <div class="flex flex-col">
+                <label for="company_id" class="font-semibold">Type:</label>
+                <div class="w-full relative">
+                    <p-select 
+                        class="w-full"
+                        [options]="options()" 
+                        formControlName="type" 
+                        optionLabel="short_description" 
+                        optionValue="activity_type_id" 
+                    />
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <label for="date_created" class="font-semibold">Date:</label>
+                <div class="w-full relative">
+                    <p-datepicker class="w-full" id="date_created" formControlName="date_created" [showTime]="true" [invalid]="isInvalid(activityForm, 'date_created')"/>
+                </div>
+                @if (isInvalid(activityForm, 'date_created')) {
+                    <p-message severity="error" size="small" variant="simple">Start date is required.</p-message>
+                }
+            </div>
+            <div class="flex flex-col">
+                <label for="notes" class="font-semibold">Notes:</label>
+                <textarea rows="2" cols="20" pTextarea formControlName="notes" autocomplete="off" [invalid]="isInvalid(activityForm, 'notes')"></textarea>
+                 @if (isInvalid(activityForm, 'notes')) {
+                    <p-message severity="error" size="small" variant="simple">Start date is required.</p-message>
+                }
+            </div>
+        </div>
+        <div class="flex justify-end gap-2 mt-4">
+            <p-button label="Cancel" severity="secondary" (click)="visible.set(false)" />
+            <p-button label="Save" type="submit" />
+        </div>
+    </form>
+</p-dialog>

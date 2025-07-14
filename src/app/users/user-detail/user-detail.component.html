@@ -1,0 +1,62 @@
+<div class="mx-auto p-6 lg:px-8">
+    <div class="mt-2">
+        <h2 class="text-2xl font-bold">Settings: User Details</h2>
+    </div>
+    <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">User Detail</h5>
+            <div class="flex direction-end mt-2 justify-end">
+                <p-button label="Edit" class="me-2" (onClick)="edit()"/>
+                <p-button label="Delete" severity="danger" (onClick)="delete($event)"/>
+            </div>
+            <div class="flex gap-8">
+                <div class="flex flex-col gap-2 w-1/2">
+                    <div class="flex">
+                        <span class="w-48 font-bold">Name:</span>
+                        <span>{{data()?.first_name}} {{data()?.last_name}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Email:</span>
+                        <span>{{data()?.email}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Username:</span>
+                        <span>{{data()?.user_name}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Access Level:</span>
+                        <span>{{data()?.short_description}}</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Last Successful Login:</span>
+                        <span>
+                            @if (data()?.last_success) { 
+                                {{ data()?.last_success | date : "dd/MM/yyyy (hh:mm a)" }}
+                            } @else {
+                                Never
+                            }
+                        </span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-48 font-bold">Last Failed Login:</span>
+                        <span>
+                            @if (data()?.last_error) { 
+                                {{ data()?.last_error | date : "dd/MM/yyyy (hh:mm a)" }}
+                            } @else {
+                                Never
+                            }
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-2 block p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+            User Login Activity
+        </h5>
+        <app-user-detail-login-activity [userId]="id()"></app-user-detail-login-activity>
+    </div>
+</div>
+
+<app-user-modal #userModal (reloadTable)="getData()"></app-user-modal>

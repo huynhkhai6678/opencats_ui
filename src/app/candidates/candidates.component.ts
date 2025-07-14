@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ButtonModule } from 'primeng/button';
@@ -23,7 +23,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './candidates.component.html',
   styleUrl: './candidates.component.scss'
 })
-export class CandidatesComponent {
+export class CandidatesComponent implements OnInit {
   readonly faPaperclip = faPaperclip;
 
   records: any[] = [];
@@ -39,7 +39,7 @@ export class CandidatesComponent {
     this.lastEvent = {
       first: 0,
       rows: 10,
-      sortField: 'company_id',
+      sortField: 'candidate_id',
       sortOrder: 1,
       globalFilter: ''
     };

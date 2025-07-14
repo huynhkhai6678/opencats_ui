@@ -24,5 +24,10 @@ export const routes: Routes = [
     { 
         path: 'not-found', 
         loadComponent: () => import('./error/not-found/not-found.component').then(mod => mod.NotFoundComponent) 
+    },
+    {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
     }
 ];

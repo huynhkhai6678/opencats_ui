@@ -1,0 +1,59 @@
+<div class="mx-auto p-6 lg:px-8">
+    <div class="mt-2">
+        <h2 class="text-2xl font-bold">Settings: Email Management</h2>
+    </div>
+    <div class="mt-2">
+        <p-table
+            [value]="records"
+            [lazy]="true"
+            [paginator]="true"
+            [rows]="10"
+            [totalRecords]="totalRecords"
+            [loading]="loading"
+            (onLazyLoad)="loadData($event)"
+            [rowsPerPageOptions]="[10, 20, 50]"
+        >
+            <ng-template #caption>
+                <div class="flex justify-between">
+                    <input pInputText type="text" (input)="onGlobalFilter($event)" placeholder="Search keyword" />
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="title">
+                        <div class="flex items-center gap-2">
+                            Title
+                            <p-sortIcon field="title"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="tag">
+                        <div class="flex items-center gap-2">
+                            Tag
+                            <p-sortIcon field="tag"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="disabled">
+                        <div class="flex items-center gap-2">
+                            Disabled
+                            <p-sortIcon field="disabled"></p-sortIcon>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-row>
+                <tr>
+                    <td>
+                        <p-button label="{{row.title}}" link/>
+                    </td>
+                    <td>
+                        {{row.text}}
+                    </td>
+                     <td>
+                        {{ row.disabled ? 'Active' : 'Inactive' }}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

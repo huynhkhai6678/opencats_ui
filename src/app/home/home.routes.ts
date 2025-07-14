@@ -79,6 +79,62 @@ export const homeRoutes: Routes = [
         }
       },
       {
+        path: 'activities',
+        loadComponent: () => import('../activities/activities.component').then(mod => mod.ActivitiesComponent),
+        canActivate: [],
+        data: { 
+          title: 'Dtalent - Activities' 
+        }
+      },
+      {
+        path: 'lists',
+        loadComponent: () => import('../lists/lists.component').then(mod => mod.ListsComponent),
+        canActivate: [],
+        data: { 
+          title: 'Dtalent - Lists' 
+        }
+      },
+      {
+        path: 'lists/:id',
+        loadComponent: () => import('../lists/list-detail/list-detail.component').then(mod => mod.ListDetailComponent),
+        canActivate: [],
+        data: { 
+          title: 'Dtalent - List Detai' 
+        }
+      },
+      {
+        path: 'settings/login-activities',
+        loadComponent: () => import('../login-activities/login-activities.component').then(mod => mod.LoginActivitiesComponent),
+        canActivate: [],
+        data: { 
+          title: 'Dtalent - List Login Activities' 
+        }
+      },
+      {
+        path: 'settings/users',
+        loadComponent: () => import('../users/users.component').then(mod => mod.UsersComponent),
+        canActivate: [],
+        data: { 
+          title: 'Dtalent - List Users' 
+        }
+      },
+      {
+        path: 'settings/users/:id',
+        loadComponent: () => import('../users/user-detail/user-detail.component').then(mod => mod.UserDetailComponent),
+        canActivate: [],
+        data: { 
+          title: 'Dtalent - List Users' 
+        }
+      },
+      {
+        path: 'settings/emails',
+        loadComponent: () => import('../emails/emails.component').then(mod => mod.EmailsComponent),
+        canActivate: [],
+        data: { 
+          title: 'Dtalent - List Users' 
+        }
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'

@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Candidate } from '../candidate.model';
 import { BaseComponent } from '../../base/base.component';
 import { AttachmentComponent } from '../../shared/attachment/attachment.component';
+import { CandidateJobOrderPipelineComponent } from '../candidate-job-order-pipeline/candidate-job-order-pipeline.component';
+import { CandidateActivitiesComponent } from '../candidate-activities/candidate-activities.component';
 
 @Component({
   selector: 'app-candidate-detail',
@@ -14,6 +16,8 @@ import { AttachmentComponent } from '../../shared/attachment/attachment.componen
     AttachmentComponent,
     ButtonModule,
     DatePipe,
+    CandidateJobOrderPipelineComponent,
+    CandidateActivitiesComponent
   ],
   templateUrl: './candidate-detail.component.html',
   styleUrl: './candidate-detail.component.scss'

@@ -1,0 +1,47 @@
+<p-dialog [header]="header()" [modal]="true" [(visible)]="visible" [style]="{ width: '40rem' }">
+    <form [formGroup]="listForm" (ngSubmit)="onSubmit(listForm.valid, listForm.value)">
+        <div class="flex flex-col mt-2">
+            <div class="flex flex-col">
+                <label for="description" class="font-semibold">Description:*</label>
+                <input pInputText id="description" formControlName="description" class="flex-auto" autocomplete="off" [invalid]="isInvalid(listForm, 'description')"/>
+                @if (isInvalid(listForm, 'description')) {
+                    <p-message severity="error" size="small" variant="simple">Description is required.</p-message>
+                }
+            </div>
+            <div class="flex flex-col">
+                <label for="data_item_type" class="font-semibold">Type:</label>
+                <p-select appendTo="body" 
+                    [options]="options()" 
+                    formControlName="data_item_type" 
+                    optionLabel="short_description" 
+                    optionValue="data_item_type_id"
+                    (onChange)="onSelectType($event)"
+                    [invalid]="isInvalid(listForm, 'data_item_type')"/>
+                @if (isInvalid(listForm, 'data_item_type')) {
+                    <p-message severity="error" size="small" variant="simple">Type is required.</p-message>
+                }
+            </div>
+            <div class="flex flex-col">
+                <label for="language" class="font-semibold">Lists:</label>
+                <p-multiselect 
+                    appendTo="body" 
+                    [options]="selections()" 
+                    formControlName="entries" 
+                    optionLabel="label" 
+                    optionValue="value"
+                    display="chip"
+                    [virtualScroll]="true" 
+                    [virtualScrollItemSize]="40"
+                    [maxSelectedLabels]="20"
+                    [invalid]="isInvalid(listForm, 'entries')"/>
+                @if (isInvalid(listForm, 'entries')) {
+                    <p-message severity="error" size="small" variant="simple">Items is required.</p-message>
+                }
+            </div>
+        </div>
+        <div class="flex justify-end gap-2 mt-4">
+            <p-button label="Cancel" severity="secondary" (click)="visible.set(false)" />
+            <p-button label="Save" type="submit" />
+        </div>
+    </form>
+</p-dialog>

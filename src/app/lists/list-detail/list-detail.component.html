@@ -1,0 +1,24 @@
+<div class="mx-auto p-6 lg:px-8">
+    <div class="mt-2">
+        <h2 class="text-2xl font-bold">Lists: {{list()?.description}}</h2>
+    </div>
+    <div class="flex direction-end mt-2 justify-end">
+        <p-button label="Create List" (onClick)="create()"/>
+    </div>
+    <div class="mt-2">
+        @if (list()?.data_item_type === DATA_ITEM_TYPE.CANDIDATE) {
+            <app-list-detail-candidate [id]="id()"></app-list-detail-candidate>
+        }
+        @if (list()?.data_item_type === DATA_ITEM_TYPE.CONTACT) {
+            <app-list-detail-contact [id]="id()"></app-list-detail-contact>
+        }
+        @if (list()?.data_item_type === DATA_ITEM_TYPE.JOB_ORDER) {
+            <app-list-detail-job-order [id]="id()"></app-list-detail-job-order>
+        }
+        @if (list()?.data_item_type === DATA_ITEM_TYPE.COMPANY) {
+            <app-list-detail-company [id]="id()"></app-list-detail-company>
+        }
+    </div>
+</div>
+
+<app-list-modal #listModal (reloadTable)="reloadTable()"></app-list-modal>

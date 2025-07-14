@@ -1,0 +1,75 @@
+<p-dialog [header]="header()" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }">
+    <form [formGroup]="userModal" (ngSubmit)="onSubmit(userModal.valid, userModal.value)">
+        <div class="flex gap-8">
+            <div class="flex flex-col gap-2 w-1/2">
+                <div class="flex flex-col">
+                    <label for="first_name" class="font-semibold">First Name:*</label>
+                    <input pInputText id="first_name" formControlName="first_name" class="flex-auto" autocomplete="off" [invalid]="isInvalid(userModal, 'first_name')"/>
+                    @if (isInvalid(userModal, 'first_name')) {
+                        <p-message severity="error" size="small" variant="simple">First name is required.</p-message>
+                    }
+                </div>
+                <div class="flex flex-col">
+                    <label for="email" class="font-semibold">Email:</label>
+                    <input pInputText id="email" formControlName="email" class="flex-auto" autocomplete="off" [invalid]="isInvalid(userModal, 'email')"/>
+                    @if (isInvalid(userModal, 'email')) {
+                        <p-message severity="error" size="small" variant="simple">Incorrect email format.</p-message>
+                    }
+                </div>
+            </div>
+            <div class="flex flex-col gap-2 w-1/2">
+                <div class="flex flex-col">
+                    <label for="start_date" class="font-semibold">Last Name:*</label>
+                    <input pInputText id="last_name" formControlName="last_name" class="flex-auto" autocomplete="off" [invalid]="isInvalid(userModal, 'last_name')"/>
+                    @if (isInvalid(userModal, 'last_name')) {
+                        <p-message severity="error" size="small" variant="simple">Last name is required.</p-message>
+                    }
+                </div>
+                <div class="flex flex-col">
+                    <label for="user_name" class="font-semibold">Username:</label>
+                    <input pInputText id="user_name" formControlName="user_name" class="flex-auto" autocomplete="off" [invalid]="isInvalid(userModal, 'user_name')"/>
+                    @if (isInvalid(userModal, 'user_name')) {
+                        <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center mt-2">
+            <p-checkbox inputId="reset_password" name="pizza" formControlName="is_reset_password" [binary]="true"/>
+            <label for="reset_password" class="ml-2">Reset Password</label>
+        </div>
+        @if (userModal.controls['is_reset_password'].value) {
+            <div class="flex gap-8 mt-2">
+                <div class="flex flex-col gap-2 w-1/2">
+                    <div class="flex flex-col">
+                        <label for="password" class="font-semibold">Password:*</label>
+                        <input type="password" pPassword id="password" formControlName="password" class="flex-auto" autocomplete="off" [invalid]="isInvalid(userModal, 'password')"/>
+                        @if (isInvalid(userModal, 'password')) {
+                            <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
+                        }
+                    </div>
+                </div>
+                <div class="flex flex-col gap-2 w-1/2">
+                    <div class="flex flex-col">
+                        <label for="confirm_password" class="font-semibold">Confirm Password:*</label>
+                        <input type="password" pPassword id="confirm_password" formControlName="confirm_password" class="flex-auto" autocomplete="off" [invalid]="isInvalid(userModal, 'confirm_password')"/>
+                        @if (isInvalid(userModal, 'confirm_password')) {
+                            <p-message severity="error" size="small" variant="simple">Confirm password is required.</p-message>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="flex flex-col gap-4 mt-2">
+            <label for="confirm_password" class="font-semibold">Access Level:</label>
+            <div *ngFor="let access of accessLevel()" class="field-checkbox">
+                <p-radiobutton [inputId]="access.access_level_id" name="category" [value]="access.access_level_id" formControlName="access_level" />
+                <label [for]="access.access_level_id" class="ml-2">{{ access.short_description }}</label>
+            </div>
+        </div>
+        <div class="flex justify-end gap-2 mt-4">
+            <p-button label="Cancel" severity="secondary" (click)="visible.set(false)" />
+            <p-button label="Save" type="submit" />
+        </div>
+    </form>
+</p-dialog>

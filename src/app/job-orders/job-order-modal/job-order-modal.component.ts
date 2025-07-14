@@ -123,7 +123,6 @@ export class JobOrderModalComponent extends BaseComponent implements OnInit {
   }
 
   override onSubmit(valid : boolean, value : any) {
-    this.formService.checkInvalidFields(this.jobOrderForm);
     super.onSubmit(valid, value, (message : string) => {
       this.jobOrderForm.reset();
       this.messageService.add({ severity: 'success', summary: 'Success', detail: message });

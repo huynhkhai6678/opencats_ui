@@ -6,6 +6,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DatePipe } from '@angular/common';
 import { AttachmentComponent } from '../../shared/attachment/attachment.component';
+import { JobOrderPipelineComponent } from '../job-order-pipeline/job-order-pipeline.component';
 
 @Component({
   selector: 'app-job-order-detail',
@@ -14,7 +15,8 @@ import { AttachmentComponent } from '../../shared/attachment/attachment.componen
     DatePipe,
     ButtonModule,
     AttachmentComponent,
-    JobOrderModalComponent
+    JobOrderModalComponent,
+    JobOrderPipelineComponent
   ],
   templateUrl: './job-order-detail.component.html',
   styleUrl: './job-order-detail.component.scss'

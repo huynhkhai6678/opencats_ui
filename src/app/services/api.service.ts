@@ -65,6 +65,8 @@ export class ApiService {
     sortField?: string;
     sortOrder?: 'asc' | 'desc';
     filter?: string;
+    startDate? : string;
+    endDate? : string;
   }): Observable<{ data: any[]; total: number }> {
     let params = new HttpParams()
       .set('page', options.page.toString())
@@ -77,6 +79,11 @@ export class ApiService {
 
     if (options.filter) {
       params = params.set('filter', options.filter);
+    }
+
+    if (options.startDate && options.endDate) {
+      params = params.set('startDate', options.startDate);
+      params = params.set('endDate', options.endDate);
     }
 
     return this.httpClient.get<{ data: any[]; total: number }>(`${environment.apiUrl}${url}`, { params });

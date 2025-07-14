@@ -1,0 +1,70 @@
+<div class="mx-auto p-6 lg:px-8">
+    <div class="mt-2">
+        <h2 class="text-2xl font-bold">Activities: Home</h2>
+    </div>
+    <div class="mt-2">
+        <p-table
+            [value]="records"
+            [lazy]="true"
+            [paginator]="true"
+            [rows]="10"
+            [totalRecords]="totalRecords"
+            [loading]="loading"
+            (onLazyLoad)="loadData($event)"
+            [globalFilterFields]="['name', 'email']"
+            [rowsPerPageOptions]="[10, 20, 50]"
+        >
+            <ng-template #caption>
+                <div class="flex justify-between">
+                    <input pInputText type="text" (input)="onGlobalFilter($event)" placeholder="Search keyword" />
+                    <p-select [(ngModel)]="filterStatus" [options]="filterOptions()" (onChange)="onDateChange($event)" optionLabel="name" optionValue="value" />
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="ip">
+                        <div class="flex items-center gap-2">
+                            IP
+                            <p-sortIcon field="ip"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="user_agent">
+                        <div class="flex items-center gap-2">
+                            User Agent
+                            <p-sortIcon field="user_agent"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="host">
+                        <div class="flex items-center gap-2">
+                            Host
+                            <p-sortIcon field="host"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="date">
+                        <div class="flex items-center gap-2">
+                            Date
+                            <p-sortIcon field="date"></p-sortIcon>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-row>
+                <tr>
+                    <td>
+                        {{ row.ip }}
+                    </td>
+                    <td>
+                        {{ row.user_agent }}
+                    </td>
+                     <td>
+                        {{ row.host }}
+                    </td>
+                    <td>
+                        {{ row.date | date : "dd/MM/yyyy (hh:mm a)" }}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

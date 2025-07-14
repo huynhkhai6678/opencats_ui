@@ -1,0 +1,124 @@
+<p-table
+    [value]="records"
+    [lazy]="true"
+    [paginator]="true"
+    [rows]="10"
+    [totalRecords]="totalRecords"
+    [loading]="loading"
+    (onLazyLoad)="loadData($event)"
+    [globalFilterFields]="['name', 'email']"
+    [rowsPerPageOptions]="[10, 20, 50]">
+    <ng-template #caption>
+        <div class="flex justify-between">
+            <input pInputText type="text" (input)="onGlobalFilter($event)" placeholder="Search keyword" />
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="joborder_id">
+                <div class="flex items-center gap-2">
+                    ID
+                    <p-sortIcon field="joborder_id"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="job_title">
+                <div class="flex items-center gap-2">
+                    Job Title
+                    <p-sortIcon field="job_title"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="company_name">
+                <div class="flex items-center gap-2">
+                    Company
+                    <p-sortIcon field="company_name"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="type">
+                <div class="flex items-center gap-2">
+                    Type
+                    <p-sortIcon field="type"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="status">
+                <div class="flex items-center gap-2">
+                    Status
+                    <p-sortIcon field="status"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="date_created">
+                <div class="flex items-center gap-2">
+                    Created
+                    <p-sortIcon field="date_created"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="day_old">
+                <div class="flex items-center gap-2">
+                    Age
+                    <p-sortIcon field="day_old"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="submitted">
+                <div class="flex items-center gap-2">
+                    Submitted
+                    <p-sortIcon field="submitted"></p-sortIcon>
+                </div>
+            </th>
+             <th pSortableColumn="pipeline">
+                <div class="flex items-center gap-2">
+                    Pipeline
+                    <p-sortIcon field="pipeline"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="owner">
+                <div class="flex items-center gap-2">
+                    Owner
+                    <p-sortIcon field="owner"></p-sortIcon>
+                </div>
+            </th>
+            <th pSortableColumn="recruiter">
+                <div class="flex items-center gap-2">
+                    Recruiter
+                    <p-sortIcon field="recruiter"></p-sortIcon>
+                </div>
+            </th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-row>
+        <tr>
+            <td>
+                {{row.joborder_id}}
+            </td>
+            <td>
+                <p-button class="link-btn" label="{{row.title}}" link routerLink="`/home/job-orders/{{row.joborder_id}}`"/>
+            </td>
+            <td>
+                 <p-button class="link-btn" label="{{row.company_name}}" link routerLink="`/home/job-orders/{{row.company_id}}`"/>
+            </td>
+            <td>
+                {{row.type}}
+            </td>
+            <td>
+                {{row.status}}
+            </td>
+            <td>
+                {{ row.date_created | date : "dd/MM/yyyy (hh:mm a)" }}
+            </td>
+            <td>
+                {{ row.day_old }}
+            </td>
+            <td>
+                {{ row.submitted }}
+            </td>
+            <td>
+                {{ row.pipeline }}
+            </td>
+            <td>
+                {{ row.owner }}
+            </td>
+            <td>
+                {{row.recruiter}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

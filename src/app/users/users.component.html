@@ -1,0 +1,99 @@
+<div class="mx-auto p-6 lg:px-8">
+    <div class="mt-2">
+        <h2 class="text-2xl font-bold">Settings: User Management</h2>
+    </div>
+    <div class="flex direction-end mt-2 justify-end">
+        <p-button label="Create User" (onClick)="create()"/>
+    </div>
+    <div class="mt-2">
+        <p-table
+            [value]="records"
+            [lazy]="true"
+            [paginator]="true"
+            [rows]="10"
+            [totalRecords]="totalRecords"
+            [loading]="loading"
+            (onLazyLoad)="loadData($event)"
+            [rowsPerPageOptions]="[10, 20, 50]"
+        >
+            <ng-template #caption>
+                <div class="flex justify-between">
+                    <input pInputText type="text" (input)="onGlobalFilter($event)" placeholder="Search keyword" />
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="first_name">
+                        <div class="flex items-center gap-2">
+                            First Name
+                            <p-sortIcon field="first_name"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="last_name">
+                        <div class="flex items-center gap-2">
+                            Last Name
+                            <p-sortIcon field="last_name"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="user_name">
+                        <div class="flex items-center gap-2">
+                            Username
+                            <p-sortIcon field="user_name"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="short_description">
+                        <div class="flex items-center gap-2">
+                            Access Level
+                            <p-sortIcon field="short_description"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="last_success">
+                        <div class="flex items-center gap-2">
+                            Last Success
+                            <p-sortIcon field="last_success"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="last_fail">
+                        <div class="flex items-center gap-2">
+                            Last Fail
+                            <p-sortIcon field="last_fail"></p-sortIcon>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-row>
+                <tr>
+                    <td>
+                        <p-button label="{{row.first_name}}" link routerLink="{{row.user_id}}"/>
+                    </td>
+                    <td>
+                        <p-button label="{{row.last_name}}" link routerLink="{{row.user_id}}"/>
+                    </td>
+                     <td>
+                        {{ row.user_name }}
+                    </td>
+                    <td>
+                        {{ row.short_description }}
+                    </td>
+                    <td>
+                        @if (row.last_success) { 
+                            {{ row.last_success | date : "dd/MM/yyyy (hh:mm a)" }}
+                        } @else {
+                            Never
+                        }
+                    </td>
+                    <td>
+                        @if (row.last_fail) { 
+                            {{ row.last_fail | date : "dd/MM/yyyy (hh:mm a)" }}
+                        } @else {
+                            Never
+                        }
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<app-user-modal #userModal (reloadTable)="reloadTable()"></app-user-modal>

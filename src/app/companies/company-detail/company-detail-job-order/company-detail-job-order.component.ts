@@ -1,6 +1,6 @@
 import { Component, input, ViewChild } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { faEnvelope, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { httpResource } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DatePipe } from '@angular/common';
