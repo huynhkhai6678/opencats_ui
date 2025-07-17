@@ -135,6 +135,30 @@ export const homeRoutes: Routes = [
         }
       },
       {
+        path: 'calendar',
+        loadComponent: () => import('../calendar/calendar.component').then(mod => mod.CalendarComponent),
+        canActivate: [],
+        data: { 
+          title: 'Dtalent - List Users' 
+        }
+      },
+      {
+        path: 'headhunts',
+        loadComponent: () => import('../headhunts/headhunts.component').then(mod => mod.HeadhuntsComponent),
+        canActivate: [],
+        data: { 
+          title: 'Dtalent - Headhunts' 
+        }
+      },
+      {
+        path: 'headhunts/:id',
+        loadComponent: () => import('../headhunts/headhunt-detail/headhunt-detail.component').then(mod => mod.HeadhuntDetailComponent),
+        canActivate: [],
+        data: { 
+          title: 'Dtalent - Headhunts' 
+        }
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'

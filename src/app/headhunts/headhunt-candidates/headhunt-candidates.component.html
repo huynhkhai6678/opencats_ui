@@ -1,0 +1,64 @@
+@let list = candidates.value() || [];
+
+<div class="mt-4">
+    <p-table
+        [value]="list"
+        [lazy]="false"
+        [paginator]="false"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="full_name">
+                    <div class="flex items-center gap-2">
+                        Full Name
+                        <p-sortIcon field="full_name"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="phone_home">
+                    <div class="flex items-center gap-2">
+                        Home
+                        <p-sortIcon field="phone_home"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="phone_cell">
+                    <div class="flex items-center gap-2">
+                        Cell
+                        <p-sortIcon field="phone_cell"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="date_created">
+                    <div class="flex items-center gap-2">
+                        Created
+                        <p-sortIcon field="date_created"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="date_modified">
+                    <div class="flex items-center gap-2">
+                        Modified
+                        <p-sortIcon field="date_modified"></p-sortIcon>
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-row>
+            <tr>
+                <td>
+                    {{ row.full_name }}
+                </td>
+                <td>
+                    {{ row.phone_home }}
+                </td>
+                <td>
+                    {{ row.phone_cell }}
+                </td>
+                <td>
+                    {{ row.date_created | date : "dd/MM/yyyy" }}
+                </td>
+                <td>
+                    {{ row.date_modified | date : "dd/MM/yyyy" }}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

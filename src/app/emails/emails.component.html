@@ -38,13 +38,18 @@
                             <p-sortIcon field="disabled"></p-sortIcon>
                         </div>
                     </th>
+                    <th >
+                        <div class="flex items-center gap-2">
+                            Action
+                        </div>
+                    </th>
                 </tr>
             </ng-template>
 
             <ng-template pTemplate="body" let-row>
                 <tr>
                     <td>
-                        <p-button label="{{row.title}}" link/>
+                        {{row.title}}
                     </td>
                     <td>
                         {{row.text}}
@@ -52,8 +57,20 @@
                      <td>
                         {{ row.disabled ? 'Active' : 'Inactive' }}
                     </td>
+                    <td>
+                        <div class="flex gap-2">
+                            <p-button severity="info" (onClick)="edit(row.email_template_id)">
+                                <fa-icon [icon]="faPencil"></fa-icon>
+                            </p-button>
+                            <p-button severity="danger" (onClick)="deleteEmail($event, row.email_template_id)">
+                                <fa-icon [icon]="faTrash"></fa-icon>
+                            </p-button>
+                        </div>
+                    </td>
                 </tr>
             </ng-template>
         </p-table>
     </div>
 </div>
+
+<app-email-modal #emailModal (reloadTable)="reload()"></app-email-modal>

@@ -9,7 +9,6 @@
         [value]="contactList"
         [lazy]="false"
         [paginator]="false"
-        [rowsPerPageOptions]="[10, 20, 50]"
     >
         <ng-template pTemplate="header">
             <tr>
@@ -91,7 +90,7 @@
                         <p-button severity="info" (onClick)="edit(row.candidate_joborder_id)">
                             <fa-icon [icon]="faPencil"></fa-icon>
                         </p-button>
-                        <p-button severity="danger" (onClick)="delete(row.candidate_joborder_id)">
+                        <p-button severity="danger" (onClick)="deletePipeline($event, row.candidate_joborder_id)">
                             <fa-icon [icon]="faTrash"></fa-icon>
                         </p-button>
                     </div>
@@ -100,3 +99,6 @@
         </ng-template>
     </p-table>
 </div>
+
+<app-job-order-pipeline-modal #pipelineModal (reloadTable)="reload()"></app-job-order-pipeline-modal>
+<app-pipeline-modal #pipelineModal (reloadTable)="reload()"></app-pipeline-modal>

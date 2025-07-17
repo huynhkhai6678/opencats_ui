@@ -60,7 +60,6 @@ export class CandidateActivitiesComponent extends BaseComponent {
 
   deleteItem(event : Event, id: number) {
     this.id.set(id);
-    console.log(this.id());
     super.delete(event, (message : string) => {
       this.messageService.add({ severity: 'success', summary: 'Delete Confirmed', detail: message });
       this.activities.reload();

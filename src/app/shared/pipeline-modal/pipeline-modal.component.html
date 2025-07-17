@@ -1,0 +1,56 @@
+<p-dialog [header]="header()" [modal]="true" [(visible)]="visible" [style]="{ width: '40rem' }">
+    <form [formGroup]="pipelineForm" (ngSubmit)="onSubmit(pipelineForm.valid, pipelineForm.value)">
+        <div class="mt-3">
+            <div class="flex">
+                <p-checkbox inputId="change_status" name="change_status" formControlName="change_status" [binary]="true"/>
+                <label for="change_status" class="ml-2">Change Status</label>
+            </div>
+            <div class="flex flex-col">
+                <label for="company_id" class="font-semibold">Status:</label>
+                <div class="w-full relative">
+                    <p-select 
+                        class="w-full"
+                        appendTo="body"
+                        [virtualScroll]="true"
+                        [virtualScrollItemSize]="40"
+                        [filter]="true"
+                        [options]="statuses()" 
+                        formControlName="status" 
+                        optionLabel="short_description" 
+                        optionValue="candidate_joborder_status_id"
+                        [disabled]="!pipelineForm.controls['change_status'].value"
+                    />
+                </div>
+            </div>
+            <div class="flex mt-6">
+                <p-checkbox inputId="create_activity" name="create_activity" formControlName="create_activity" [binary]="true"/>
+                <label for="create_activity" class="ml-2">Create activity</label>
+            </div>
+            <div class="flex flex-col">
+                <label for="company_id" class="font-semibold">Candidate:</label>
+                <div class="w-full relative">
+                    <p-select 
+                        class="w-full"
+                        appendTo="body"
+                        [virtualScroll]="true"
+                        [virtualScrollItemSize]="40"
+                        [filter]="true"
+                        [options]="types()" 
+                        formControlName="activity_type" 
+                        optionLabel="short_description" 
+                        optionValue="activity_type_id"
+                        [disabled]="!pipelineForm.controls['create_activity'].value"
+                    />
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <label for="activity_notes" class="font-semibold">Notes:</label>
+                <input id="activity_notes" pInputText formControlName="activity_notes" [disabled]="true"/>
+            </div>
+        </div>
+        <div class="flex justify-end gap-2 mt-4">
+            <p-button label="Cancel" severity="secondary" (click)="visible.set(false)" />
+            <p-button label="Save" type="submit" />
+        </div>
+    </form>
+</p-dialog>

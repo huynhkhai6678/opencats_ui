@@ -1,0 +1,74 @@
+<p-dialog [header]="header()" [modal]="true" [(visible)]="visible" [style]="{ width: '40rem' }">
+    <form [formGroup]="calendarForm" (ngSubmit)="onSubmit(calendarForm.valid, calendarForm.value)">
+        <div class="mt-3 flex gap-8">
+            <div class="flex flex-col w-1/2">
+                <div class="flex flex-col">
+                    <label for="title" class="font-semibold">Title:</label>
+                    <input id="title" pInputText formControlName="title"/>
+                    @if (isInvalid(calendarForm, 'title')) {
+                        <p-message severity="error" size="small" variant="simple">Title is required.</p-message>
+                    }
+                </div>
+                <div class="flex mt-2">
+                    <p-checkbox inputId="public" name="public" formControlName="public" [binary]="true"/>
+                    <label for="public" class="ml-2">Public entry</label>
+                </div>
+                <div class="flex flex-col mt-2">
+                    <label for="date" class="font-semibold">Date:</label>
+                    <p-datepicker appendTo="body" id="date" formControlName="date" dateFormat="dd/mm/yy"/>
+                </div>
+                <div class="flex flex-col mt-2">
+                    <label for="company_id" class="font-semibold">Type:</label>
+                    <p-select 
+                        appendTo="body"
+                        [virtualScroll]="true"
+                        [virtualScrollItemSize]="40"
+                        [filter]="true"
+                        [options]="durations()" 
+                        formControlName="duration" 
+                    />
+                    @if (isInvalid(calendarForm, 'duration')) {
+                        <p-message severity="error" size="small" variant="simple">Title is required.</p-message>
+                    }
+                </div>
+            </div>
+            <div class="flex flex-col w-1/2">
+                <div class="flex flex-col">
+                    <label for="company_id" class="font-semibold">Type:</label>
+                    <p-select 
+                        appendTo="body"
+                        [virtualScroll]="true"
+                        [virtualScrollItemSize]="40"
+                        [filter]="true"
+                        [options]="types()" 
+                        formControlName="type" 
+                        optionLabel="short_description" 
+                        optionValue="calendar_event_type_id"
+                    />
+                    @if (isInvalid(calendarForm, 'duration')) {
+                        <p-message severity="error" size="small" variant="simple">
+                            Type is required.
+                        </p-message>
+                    }
+                </div>
+                <div class="flex mt-2">
+                    <p-checkbox inputId="all_day" name="all_day" formControlName="all_day" [binary]="true"/>
+                    <label for="all_day" class="ml-2">All day/ No Specific Time</label>
+                </div>
+                <div class="flex flex-col mt-2">
+                    <label for="date" class="font-semibold">Time:</label>
+                    <p-datepicker appendTo="body" id="date" formControlName="time" [timeOnly]="true" [disabled]="calendarForm.controls['all_day'].value"/>
+                </div>
+                <div class="flex flex-col mt-2">
+                    <label for="description" class="font-semibold">Description:</label>
+                    <textarea rows="2" cols="20" pTextarea formControlName="description" autocomplete="off"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-end gap-2 mt-4">
+            <p-button label="Cancel" severity="secondary" (click)="visible.set(false)" />
+            <p-button label="Delete" severity="danger" (click)="delete($event)" />
+            <p-button label="Save" type="submit" />
+        </div>
+    </form>
+</p-dialog>

@@ -1,4 +1,4 @@
-@let contactList = activities.value() || [];
+@let pipelineList = pipelines.value() || [];
 
 <div class="flex direction-end mt-2 justify-end">
     <p-button label="Add Candidate To Pipeline" class="me-2" (onClick)="create()"/>
@@ -6,7 +6,7 @@
 
 <div class="mt-4">
     <p-table
-        [value]="contactList"
+        [value]="pipelineList"
         [lazy]="false"
         [paginator]="false"
         [rowsPerPageOptions]="[10, 20, 50]"
@@ -69,13 +69,13 @@
                     <p-rating [(ngModel)]="row.rating_value" (onRate)="onRating($event, row.candidate_joborder_id)"/>
                 </td>
                 <td>
-                    {{ row.candidate.full_name }}
+                    {{ row.candidate?.full_name }}
                 </td>
                 <td>
                     {{ row.date_created | date : "dd/MM/yyyy" }}
                 </td>
                 <td>
-                    {{ row.candidate.entered_user.name }}
+                    {{ row.candidate?.entered_user?.name }}
                 </td>
                 <td>
                     {{ row.status_info.short_description }}
@@ -91,7 +91,7 @@
                         <p-button severity="info" (onClick)="edit(row.candidate_joborder_id)">
                             <fa-icon [icon]="faPencil"></fa-icon>
                         </p-button>
-                        <p-button severity="danger" (onClick)="delete(row.candidate_joborder_id)">
+                        <p-button severity="danger" (onClick)="deletePipeline($event, row.candidate_joborder_id)">
                             <fa-icon [icon]="faTrash"></fa-icon>
                         </p-button>
                     </div>
@@ -100,3 +100,6 @@
         </ng-template>
     </p-table>
 </div>
+
+<app-job-order-pipeline-modal #createPipelineModal (reloadTable)="reload()"></app-job-order-pipeline-modal>
+<app-pipeline-modal #pipelineModal (reloadTable)="reload()"></app-pipeline-modal>

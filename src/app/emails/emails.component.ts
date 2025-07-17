@@ -1,10 +1,13 @@
-import { DatePipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { EmailTemplate } from './email.model';
 import { ApiService } from '../services/api.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { EmailModalComponent } from './email-modal/email-modal.component';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'app-emails',
@@ -12,17 +15,22 @@ import { ApiService } from '../services/api.service';
     ButtonModule,
     TableModule,
     InputTextModule,
+    FontAwesomeModule,
+    EmailModalComponent
   ],
   templateUrl: './emails.component.html',
   styleUrl: './emails.component.scss'
 })
-export class EmailsComponent implements OnInit {
+export class EmailsComponent extends BaseComponent implements OnInit {
+  readonly faTrash = faTrash;
+  readonly faPencil = faPencil;
+
   records: EmailTemplate[] = [];
   totalRecords: number = 0;
   loading: boolean = false;
   lastEvent : any = null;
 
-  apiService = inject(ApiService);
+  @ViewChild(EmailModalComponent) emailModal!: EmailModalComponent;
 
   ngOnInit(): void {
     this.lastEvent = {
@@ -58,5 +66,24 @@ export class EmailsComponent implements OnInit {
   onGlobalFilter(event: any) {
     const value = event.target.value;
     this.loadData({ ...this.lastEvent, globalFilter: value });
+  }
+
+   edit(id: number) {
+    this.emailModal.header.set('Update email template');
+    this.emailModal.visible.set(true);
+    this.emailModal.id.set(id);
+    this.emailModal.initFormData();
+  }
+
+  deleteEmail(event : Event, id: number) {
+    this.id.set(id);
+    super.delete(event, (message : string) => {
+      this.messageService.add({ severity: 'success', summary: 'Delete Confirmed', detail: message });
+      this.reload();
+    });
+  }
+
+  reload() {
+    this.loadData(this.lastEvent);
   }
 }

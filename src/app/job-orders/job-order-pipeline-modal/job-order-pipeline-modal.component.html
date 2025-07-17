@@ -1,0 +1,50 @@
+<p-dialog [header]="header()" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }">
+    <form [formGroup]="pipelineForm" (ngSubmit)="onSubmit(pipelineForm.valid, pipelineForm.value)">
+        @if (isJobOrder()) {
+            <p-message>Select candidate above to add to this joborder</p-message>                    
+            <div class="mt-3">
+                <div class="flex flex-col">
+                    <label for="company_id" class="font-semibold">Candidate:</label>
+                    <div class="w-full relative">
+                        <p-select 
+                            class="w-full"
+                            appendTo="body"
+                            [virtualScroll]="true"
+                            [virtualScrollItemSize]="40"
+                            [filter]="true"
+                            [options]="candidates()" 
+                            formControlName="candidate_id" 
+                            optionLabel="full_name" 
+                            optionValue="candidate_id" 
+                        />
+                    </div>
+                </div>
+            </div>
+        } @else {
+            <p-message>Select job to add to this candidate</p-message>                    
+            <div class="mt-3">
+                <div class="flex flex-col">
+                    <label for="company_id" class="font-semibold">Job Order:</label>
+                    <div class="w-full relative">
+                        <p-select 
+                            class="w-full"
+                            appendTo="body"
+                            [virtualScroll]="true"
+                            [virtualScrollItemSize]="40"
+                            [filter]="true"
+                            [options]="joborders()" 
+                            formControlName="joborder_id" 
+                            optionValue="joborder_id"
+                            optionLabel="full_name" 
+                        >
+                        </p-select>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="flex justify-end gap-2 mt-4">
+            <p-button label="Cancel" severity="secondary" (click)="visible.set(false)" />
+            <p-button label="Save" type="submit" />
+        </div>
+    </form>
+</p-dialog>

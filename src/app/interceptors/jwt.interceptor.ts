@@ -24,7 +24,6 @@ export function JwtInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): 
             if (error.status === 401) {
               authService.logout();
             }
-            console.log(error);
             messageService.add({ severity: 'error', summary: 'Error', detail: error.error.message });
             return throwError(() => error);
         })

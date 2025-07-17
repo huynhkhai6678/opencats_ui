@@ -1,19 +1,15 @@
 <header class="bg-white">
-  <nav class="mx-auto flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+  <div class="mx-auto flex items-center justify-between px-6" aria-label="Global">
     <div class="flex">
       <a href="#" class="-m-1.5 p-1.5">
         <span class="sr-only">Your Company</span>
         <img class="w-auto" src="applicationLogo.jpg" alt="" />
       </a>
     </div>
-    <div class="flex space-x-3">
-        @for (route of routes(); track route.name) {
-            <a routerLink="{{route.link}}" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-700 hover:text-white" routerLinkActive="active-link">{{route.name}}</a>
-        }
-        <!-- <a class="rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer" (click)="menu.toggle($event)">Settings</a>
-        <p-tieredMenu [model]="settingItems" [popup]="true" #menu></p-tieredMenu> -->
-    </div> 
-    <div class="flex lg:flex-col lg:items-end">
+    <div class="flex item-end">
+        <a class="rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer" (click)="setting.toggle($event)">
+          <fa-icon [icon]="faGear"></fa-icon>
+        </a>
         <a class="rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer" (click)="menu.toggle($event)">
           <fa-icon [icon]="faUser"></fa-icon>
         </a>
@@ -25,8 +21,15 @@
               </div>
             </ng-template>
         </p-menu>
+        <p-menu [model]="settingMenus" [popup]="true" #setting>
+        </p-menu>
     </div>
-  </nav>
+  </div>
+  <nav class="mx-auto flex items-center p-6 border-y border-gray-200 gap-2">
+      @for (route of routes(); track route.name) {
+          <a routerLink="{{route.link}}" class="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-700 hover:text-white" routerLinkActive="active-link">{{route.name}}</a>
+      }
+   </nav> 
 </header>
 
 <app-home-header-change-password #changePasswordModal></app-home-header-change-password>

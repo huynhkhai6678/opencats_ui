@@ -1,0 +1,57 @@
+@let eventList = events.value() || [];
+<div class="mt-2">
+    <p-message>My Upcomming Events</p-message>
+</div>
+<div class="mt-2">
+    <p-table
+        [value]="eventList"
+        [lazy]="false"
+        [paginator]="false"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="date">
+                    <div class="flex items-center gap-2">
+                        Date
+                        <p-sortIcon field="date"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="date">
+                    <div class="flex items-center gap-2">
+                        Time
+                        <p-sortIcon field="date"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="title">
+                    <div class="flex items-center gap-2">
+                        Title
+                        <p-sortIcon field="title"></p-sortIcon>
+                    </div>
+                </th>
+                <th pSortableColumn="description">
+                    <div class="flex items-center gap-2">
+                        Description
+                        <p-sortIcon field="description"></p-sortIcon>
+                    </div>
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-row>
+            <tr>
+                <td>
+                    {{ row.date | date : "dd/MM/yyyy" }}
+                </td>
+                <td>
+                    {{ row.date | date : "hh:mm a" }}
+                </td>
+                <td>
+                    {{ row.title }}
+                </td>
+                <td>
+                    {{ row.description }}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
