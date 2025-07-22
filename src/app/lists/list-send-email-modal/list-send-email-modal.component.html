@@ -1,0 +1,41 @@
+<p-dialog [header]="header()" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }">
+    <form [formGroup]="listForm" (ngSubmit)="onSubmit(listForm.valid, listForm.value)">
+        <div class="flex flex-col mt-2">
+            <div class="flex flex-col mt-2">
+                <label for="List email" class="font-semibold">To:</label>
+                <p-select appendTo="body" 
+                    [options]="lists()" 
+                    formControlName="list_id" 
+                    optionLabel="description" 
+                    optionValue="saved_list_id"
+                    [invalid]="isInvalid(listForm, 'list_id')"/>
+                @if (isInvalid(listForm, 'list_id')) {
+                    <p-message severity="error" size="small" variant="simple">Contact List is required.</p-message>
+                }
+            </div>
+            <div class="flex flex-col mt-2">
+                <label for="email_subject" class="font-semibold">Subject:*</label>
+                <input pInputText id="email_subject" formControlName="email_subject" class="flex-auto" autocomplete="off" [invalid]="isInvalid(listForm, 'email_subject')"/>
+                @if (isInvalid(listForm, 'email_subject')) {
+                    <p-message severity="error" size="small" variant="simple">Subject is required.</p-message>
+                }
+            </div>
+
+             <div class="flex flex-col mt-2">
+                <label for="email_body" class="font-semibold">Body</label>
+                 <ckeditor
+                    class="send-email"
+                    *ngIf="( Editor && config )"
+                    formControlName="email_body"
+                    [editor]="Editor"
+                    [config]="config"
+                >
+                </ckeditor>
+            </div>
+        </div>
+        <div class="flex justify-end gap-2 mt-4">
+            <p-button label="Cancel" severity="secondary" (click)="visible.set(false)" />
+            <p-button label="Send Email" type="submit" />
+        </div>
+    </form>
+</p-dialog>

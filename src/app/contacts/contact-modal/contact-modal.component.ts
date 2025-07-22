@@ -74,7 +74,7 @@ export class ContactModalComponent extends BaseComponent implements OnInit {
   initDepartmentAndReportList(response : any) {
     this.departmentList.set(response['departments']);
 
-    let listContact = response['reports'];
+    let listContact = response['reports'] || [];
     this.reportList.set(listContact.map((item : any)=> { 
       return {
         label : item.last_name + ', ' + item.first_name,
@@ -83,15 +83,24 @@ export class ContactModalComponent extends BaseComponent implements OnInit {
   }
 
   changeCompany(event : SelectChangeEvent) {
-    console.log(event.value);
+    this.apiService.get(`${this.url}/${event.value}/company-contact`).subscribe((res : any) => {
+      this.initDepartmentAndReportList(res);
+    });
   }
 
   override onSubmit(valid : boolean, value : any) {
     super.onSubmit(valid, value, (message : string) => {
-      this.companyForm.reset();
+      this.resetForm();
       this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
       this.visible.set(false);
       this.reloadTable.emit(true);
     });
+  }
+
+  resetForm() {
+    this.companyForm.reset();
+    this.companyForm.controls['company_department_id'].setValue(0);
+    this.companyForm.controls['is_hot'].setValue(0);
+    this.companyForm.controls['company_id'].setValue(1);
   }
 }

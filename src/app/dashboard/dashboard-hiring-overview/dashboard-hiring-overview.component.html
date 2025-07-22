@@ -1,0 +1,12 @@
+<div class="mt-2">
+    <p-message>Hiring Overview</p-message>
+</div>
+<div class="mt-2">
+    @if (updateFlag) {
+         <highcharts-chart
+            [constructorType]="chartConstructor"
+            [options]="chartOptions"
+            class="chart"
+        />
+    }
+</div>

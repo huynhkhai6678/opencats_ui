@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +7,8 @@ import { TableModule } from 'primeng/table';
 import { ApiService } from '../services/api.service';
 import { ContactModalComponent } from './contact-modal/contact-modal.component';
 import { DatePipe } from '@angular/common';
+import { InputTextModule } from 'primeng/inputtext';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-contacts',
@@ -14,6 +16,7 @@ import { DatePipe } from '@angular/common';
     DatePipe,
     RouterLink,
     FontAwesomeModule,
+    InputTextModule,
     ButtonModule,
     TableModule,
     ContactModalComponent
@@ -49,7 +52,7 @@ export class ContactsComponent implements OnInit {
 
     const page = event.first! / event.rows!;
     const size = event.rows!;
-    const sortField = event.sortField || 'company_id';
+    const sortField = event.sortField || 'contact_id';
     const sortOrder = event.sortOrder === 1 ? 'desc' : 'asc';
     const filter = event.globalFilter || '';
 
@@ -73,5 +76,13 @@ export class ContactsComponent implements OnInit {
 
   reloadTable() {
     this.loadData(this.currentLazyLoadEvent);
+  }
+
+  export() {
+    this.apiService.downloadFile('contacts/export').subscribe(
+      (fileBlob: any) => {
+        saveAs(fileBlob, 'contacts.csv');
+      }
+    );
   }
 }

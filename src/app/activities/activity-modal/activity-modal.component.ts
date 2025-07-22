@@ -30,8 +30,9 @@ export class ActivityModalComponent extends BaseComponent implements OnInit {
   override url = 'activities';
   activityForm! : FormGroup;
   visible = model<boolean>(false);
-
   options = signal<ActivityType[]>([]);
+  dataType = signal<number>(0);
+  dataItemId = signal<number>(0);
 
   @Output() reloadTable = new EventEmitter();
   fb = inject(FormBuilder);
@@ -57,6 +58,8 @@ export class ActivityModalComponent extends BaseComponent implements OnInit {
   }
 
   override onSubmit(valid : boolean, value : any) {
+    value.data_item_type = this.dataType();
+    value.data_item_id =this.dataItemId();
     super.onSubmit(valid, value, (message : string) => {
       this.activityForm.reset();
       this.messageService.add({ severity: 'success', summary: 'Success', detail: message });

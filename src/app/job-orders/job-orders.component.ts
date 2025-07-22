@@ -7,6 +7,9 @@ import { TableModule } from 'primeng/table';
 import { JobOrderModalComponent } from './job-order-modal/job-order-modal.component';
 import { ApiService } from '../services/api.service';
 import { DatePipe } from '@angular/common';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FormsModule } from '@angular/forms';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-job-orders',
@@ -14,6 +17,8 @@ import { DatePipe } from '@angular/common';
     RouterLink,
     FontAwesomeModule,
     ButtonModule,
+    FormsModule,
+    CheckboxModule,
     TableModule,
     InputTextModule,
     JobOrderModalComponent,
@@ -31,12 +36,16 @@ export class JobOrdersComponent {
   apiService = inject(ApiService);
 
   @ViewChild(JobOrderModalComponent) jobOrderModal!: JobOrderModalComponent;
+  filterOptions = {
+    is_my_company: false,
+    is_hot_company: false,
+  }
 
   ngOnInit(): void {
     this.lastEvent = {
       first: 0,
-      rows: 10,
-      sortField: 'company_id',
+      rows: 15,
+      sortField: 'joborder_id',
       sortOrder: 1,
       globalFilter: ''
     };
@@ -50,8 +59,9 @@ export class JobOrdersComponent {
     const sortField = event.sortField || 'company_id';
     const sortOrder = event.sortOrder === 1 ? 'desc' : 'asc';
     const filter = event.globalFilter || '';
+    const filterOptions = this.filterOptions;
 
-    this.apiService.getPaginatedData('job-orders', { page, size, sortField, sortOrder, filter }).subscribe(res => {
+    this.apiService.getPaginatedData('job-orders', { page, size, sortField, sortOrder, filter, filterOptions }).subscribe(res => {
       this.records = res.data;
       this.totalRecords = res.total;
       this.lastEvent = event;
@@ -72,5 +82,17 @@ export class JobOrdersComponent {
 
   reloadTable() {
     this.loadData(this.lastEvent);
+  }
+
+  setFilter() {
+    this.loadData({ ...this.lastEvent, filterOptions: this.filterOptions });
+  }
+
+  export() {
+    this.apiService.downloadFile('job-orders/export').subscribe(
+      (fileBlob: any) => {
+        saveAs(fileBlob, 'job-order.csv');
+      }
+    );
   }
 }

@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { JobOrderModalComponent } from '../../../job-orders/job-order-modal/job-order-modal.component';
+import { JobOrder } from '../../../job-orders/job-order.model';
 
 @Component({
   selector: 'app-company-detail-job-order',
@@ -29,7 +30,7 @@ export class CompanyDetailJobOrderComponent {
   @ViewChild(JobOrderModalComponent) jobOrderModal!: JobOrderModalComponent;
 
   companyId = input<number>(0);
-  jobOrders = httpResource<any[]>(
+  jobOrders = httpResource<JobOrder[]>(
     () => {
       if (this.companyId() === 0) {
         return;

@@ -37,6 +37,10 @@ export class ActivitiesComponent {
   dateOptions = signal<{name: string; value: string[]}[]>([]);
 
   apiService = inject(ApiService);
+  filterOptions = {
+    startDate: '',
+    endDate: '',
+  }
 
   ngOnInit(): void {
     this.lastEvent = {
@@ -47,25 +51,25 @@ export class ActivitiesComponent {
       globalFilter: ''
     };
 
+    const today = moment();
+    const thisMonthStart = today.clone().startOf('month');
+    const thisMonthEnd = today.clone().endOf('month');
+    this.filterOptions.startDate = thisMonthStart.toISOString();
+    this.filterOptions.endDate = thisMonthEnd.toISOString();
+
     this.generateDateFilter();
   }
 
   loadData(event: any) {
     this.loading = true;
-
-    const today = moment();
-    const thisMonthStart = today.clone().startOf('month');
-    const thisMonthEnd = today.clone().endOf('month');
-
     const page = event.first! / event.rows!;
     const size = event.rows!;
     const sortField = event.sortField || 'activity_id';
     const sortOrder = event.sortOrder === 1 ? 'desc' : 'asc';
-    const filter = event.globalFilter || '';  
-    const startDate = event.startDate === undefined ? thisMonthStart.toISOString() :  event.startDate;
-    const endDate = event.endDate === undefined ? thisMonthEnd.toISOString() : event.endDate;
+    const filter = event.globalFilter || '';
+    const filterOptions = this.filterOptions;
 
-    this.apiService.getPaginatedData('activities', { page, size, sortField, sortOrder, filter, startDate, endDate }).subscribe(res => {
+    this.apiService.getPaginatedData('activities', { page, size, sortField, sortOrder, filter, filterOptions }).subscribe(res => {
       this.records = res.data;
       this.totalRecords = res.total;
       this.lastEvent = event;
@@ -75,7 +79,9 @@ export class ActivitiesComponent {
 
   onDateChange(event : SelectChangeEvent) {
     const value = event.value;
-    this.loadData({ ...this.lastEvent, startDate: value[0], endDate: value[1] });
+    this.filterOptions.startDate = value[0];
+    this.filterOptions.endDate = value[1];
+    this.loadData({ ...this.lastEvent, filterOptions: this.filterOptions });
   }
 
   onGlobalFilter(event: any) {

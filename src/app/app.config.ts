@@ -7,6 +7,7 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import bluePreset from '../../blue-preset';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { provideHighcharts } from 'highcharts-angular';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,6 +21,16 @@ export const appConfig: ApplicationConfig = {
             darkModeSelector: '.my-app-dark'
           }
         }
+    }),
+    provideHighcharts({
+      instance: () => import('highcharts'),
+      modules: () => {
+        return [
+          import('highcharts/esm/modules/accessibility'),
+          import('highcharts/esm/modules/exporting'),
+          import('highcharts/esm/modules/export-data'),
+        ];
+      },
     }),
     provideHttpClient(
       withInterceptors([JwtInterceptor]), 

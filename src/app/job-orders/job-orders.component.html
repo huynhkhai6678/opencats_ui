@@ -2,7 +2,8 @@
     <div class="mt-2">
         <h2 class="text-2xl font-bold">Job Order: Home</h2>
     </div>
-    <div class="flex direction-end mt-2 justify-end">
+    <div class="flex direction-end mt-2 gap-4 justify-end">
+        <p-button label="Export Job" (onClick)="export()"/>
         <p-button label="Create Job" (onClick)="create()"/>
     </div>
     <div class="mt-2">
@@ -15,11 +16,21 @@
             [loading]="loading"
             (onLazyLoad)="loadData($event)"
             [globalFilterFields]="['name', 'email']"
-            [rowsPerPageOptions]="[10, 20, 50]"
+            [rowsPerPageOptions]="[15, 30, 50, 100]"
         >
             <ng-template #caption>
-                <div class="flex">
+                <div class="flex justify-between items-center">
                     <input pInputText type="text" (input)="onGlobalFilter($event)" placeholder="Search keyword" />
+                    <div class="flex gap-4">
+                        <div class="flex items-center">
+                            <p-checkbox inputId="is_my_company" name="is_my_company" [binary]="true" [(ngModel)]="filterOptions.is_my_company" (onChange)="setFilter()"/>
+                            <label for="is_my_company" class="ml-2">Only my job order</label>
+                        </div>
+                        <div class="flex items-center">
+                            <p-checkbox inputId="is_hot_company" name="is_hot_company" [binary]="true" [(ngModel)]="filterOptions.is_hot_company" (onChange)="setFilter()"/>
+                            <label for="is_hot_company" class="ml-2">Only hot job order</label>
+                        </div>
+                    </div>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">

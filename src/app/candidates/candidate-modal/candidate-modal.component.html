@@ -123,7 +123,7 @@
             </div>
         </div>
         <div class="flex justify-end gap-2 mt-4">
-            <p-button label="Cancel" severity="secondary" (click)="visible.set(false)" />
+            <p-button label="Cancel" severity="secondary" (click)="visible.set(false);resetForm();" />
             <p-button label="Save" type="submit" />
         </div>
     </form>

@@ -8,15 +8,20 @@ import { CandidateModalComponent } from './candidate-modal/candidate-modal.compo
 import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
 import { ApiService } from '../services/api.service';
 import { DatePipe } from '@angular/common';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FormsModule } from '@angular/forms';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-candidates',
   imports: [
     RouterLink,
+    FormsModule,
     FontAwesomeModule,
     ButtonModule,
     TableModule,
     InputTextModule,
+    CheckboxModule,
     DatePipe,
     CandidateModalComponent
   ],
@@ -32,6 +37,10 @@ export class CandidatesComponent implements OnInit {
   lastEvent : any = null;
 
   apiService = inject(ApiService);
+  filterOptions = {
+    is_my_company: false,
+    is_hot_company: false,
+  }
 
   @ViewChild(CandidateModalComponent) candidateModal!: CandidateModalComponent;
 
@@ -53,8 +62,9 @@ export class CandidatesComponent implements OnInit {
     const sortField = event.sortField || 'candidate_id';
     const sortOrder = event.sortOrder === 1 ? 'desc' : 'asc';
     const filter = event.globalFilter || '';
+    const filterOptions = this.filterOptions;
 
-    this.apiService.getPaginatedData('candidates', { page, size, sortField, sortOrder, filter }).subscribe(res => {
+    this.apiService.getPaginatedData('candidates', { page, size, sortField, sortOrder, filter, filterOptions }).subscribe(res => {
       this.records = res.data;
       this.totalRecords = res.total;
       this.lastEvent = event;
@@ -75,5 +85,17 @@ export class CandidatesComponent implements OnInit {
 
   reloadTable() {
     this.loadData(this.lastEvent);
+  }
+
+  setFilter() {
+    this.loadData({ ...this.lastEvent, filterOptions: this.filterOptions });
+  }
+  
+  export() {
+    this.apiService.downloadFile('candidates/export').subscribe(
+      (fileBlob: any) => {
+        saveAs(fileBlob, 'candidates.csv');
+      }
+    );
   }
 }

@@ -117,18 +117,12 @@ export class CandidateModalComponent extends BaseComponent {
       this.formService.submitForm('candidates', this.id(), value).subscribe({
         next : (response) => {
           this.onSubmitSuccess(response.message);
-        },
-        error : (error) => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: error.error.message });
         }
       })
     } else {
       this.formService.submitFormWithFile('candidates', this.id(), value).subscribe({
         next : (response) => {
           this.onSubmitSuccess(response.message);
-        },
-        error : (error) => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: error.error.message });
         }
       })
     }
@@ -138,7 +132,15 @@ export class CandidateModalComponent extends BaseComponent {
     this.isSubmitted = false;
     this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
     this.visible.set(false);
+    this.resetForm();
     this.reloadTable.emit(true);
+  }
+
+  resetForm() {
+    this.candidateForm.reset();
+    this.candidateForm.controls['language'].setValue(['Vietnamese']);
+    this.candidateForm.controls['exp_years'].setValue('');
+    this.candidateForm.controls['can_relocate'].setValue(0);
   }
 
   onUpload(event : FileSelectEvent) {

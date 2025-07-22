@@ -7,15 +7,20 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
 import { RouterLink } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FormsModule } from '@angular/forms';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-companies',
   imports: [
+    FormsModule,
     RouterLink,
     FontAwesomeModule,
     ButtonModule,
     TableModule,
     InputTextModule,
+    CheckboxModule,
     CompanyModalComponent,
   ],
   templateUrl: './companies.component.html',
@@ -32,6 +37,10 @@ export class CompaniesComponent implements OnInit {
   apiService = inject(ApiService);
 
   @ViewChild(CompanyModalComponent) companyModal!: CompanyModalComponent;
+  filterOptions = {
+    is_my_company: false,
+    is_hot_company: false,
+  }
 
   ngOnInit(): void {
     this.lastEvent = {
@@ -51,8 +60,9 @@ export class CompaniesComponent implements OnInit {
     const sortField = event.sortField || 'company_id';
     const sortOrder = event.sortOrder === 1 ? 'desc' : 'asc';
     const filter = event.globalFilter || '';
+    const filterOptions = this.filterOptions;
 
-    this.apiService.getPaginatedData('companies', { page, size, sortField, sortOrder, filter }).subscribe(res => {
+    this.apiService.getPaginatedData('companies', { page, size, sortField, sortOrder, filter, filterOptions }).subscribe(res => {
       this.records = res.data;
       this.totalRecords = res.total;
       this.lastEvent = event;
@@ -71,5 +81,17 @@ export class CompaniesComponent implements OnInit {
 
   reloadTable() {
     this.loadData(this.lastEvent);
+  }
+
+  setFilter() {
+    this.loadData({ ...this.lastEvent, filterOptions: this.filterOptions });
+  }
+
+  export() {
+    this.apiService.downloadFile('companies/export').subscribe(
+      (fileBlob: any) => {
+        saveAs(fileBlob, 'companies.csv');
+      }
+    );
   }
 }

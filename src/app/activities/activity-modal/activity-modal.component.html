@@ -3,21 +3,17 @@
         <div class="columns-1 mt-3">
             <div class="flex flex-col">
                 <label for="company_id" class="font-semibold">Type:</label>
-                <div class="w-full relative">
-                    <p-select 
-                        class="w-full"
-                        [options]="options()" 
-                        formControlName="type" 
-                        optionLabel="short_description" 
-                        optionValue="activity_type_id" 
-                    />
-                </div>
+                <p-select 
+                    appendTo="body"
+                    [options]="options()" 
+                    formControlName="type" 
+                    optionLabel="short_description" 
+                    optionValue="activity_type_id" 
+                />
             </div>
             <div class="flex flex-col">
                 <label for="date_created" class="font-semibold">Date:</label>
-                <div class="w-full relative">
-                    <p-datepicker class="w-full" id="date_created" formControlName="date_created" [showTime]="true" [invalid]="isInvalid(activityForm, 'date_created')"/>
-                </div>
+                <p-datepicker appendTo="body" id="date_created" formControlName="date_created" [showTime]="true" [invalid]="isInvalid(activityForm, 'date_created')"/>
                 @if (isInvalid(activityForm, 'date_created')) {
                     <p-message severity="error" size="small" variant="simple">Start date is required.</p-message>
                 }

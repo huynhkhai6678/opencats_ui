@@ -11,6 +11,7 @@ import { ListDetailCompanyComponent } from './list-detail-company/list-detail-co
 import { ListDetailContactComponent } from './list-detail-contact/list-detail-contact.component';
 import { ListDetailJobOrderComponent } from './list-detail-job-order/list-detail-job-order.component';
 import { SavedList } from './list.model';
+import { ListSendEmailModalComponent } from '../list-send-email-modal/list-send-email-modal.component';
 
 @Component({
   selector: 'app-list-detail',
@@ -22,7 +23,8 @@ import { SavedList } from './list.model';
     ListDetailCandidateComponent,
     ListDetailCompanyComponent,
     ListDetailContactComponent,
-    ListDetailJobOrderComponent
+    ListDetailJobOrderComponent,
+    ListSendEmailModalComponent
   ],
   templateUrl: './list-detail.component.html',
   styleUrl: './list-detail.component.scss'
@@ -37,6 +39,7 @@ export class ListDetailComponent implements OnInit {
   activatedRoute = inject(ActivatedRoute);
 
   @ViewChild(ListModalComponent) listModal!: ListModalComponent;
+  @ViewChild(ListSendEmailModalComponent) sendEmailModal!: ListSendEmailModalComponent;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
@@ -54,7 +57,10 @@ export class ListDetailComponent implements OnInit {
     this.listModal.initFormData();
   }
 
-  reloadTable() {
-    console.log(this.reloadTable)
+  sendEmail(type: string = '') {
+    this.sendEmailModal.id.set(this.id());
+    this.sendEmailModal.visible.set(true);
+    this.sendEmailModal.type.set(type);
+    this.sendEmailModal.initFormData();
   }
 }

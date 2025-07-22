@@ -2,7 +2,13 @@
     <div class="mt-2">
         <h2 class="text-2xl font-bold">Lists: {{list()?.description}}</h2>
     </div>
-    <div class="flex direction-end mt-2 justify-end">
+    <div class="flex direction-end mt-2 gap-2 justify-end">
+        @if (list()?.data_item_type === DATA_ITEM_TYPE.CANDIDATE) {
+            <p-button label="Send Marketing Email" (onClick)="sendEmail('employee')"/>
+        }
+        @if (list()?.data_item_type === DATA_ITEM_TYPE.JOB_ORDER) {
+            <p-button label="Send Email" (onClick)="sendEmail('candidate')"/>
+        }
         <p-button label="Create List" (onClick)="create()"/>
     </div>
     <div class="mt-2">
@@ -21,4 +27,5 @@
     </div>
 </div>
 
-<app-list-modal #listModal (reloadTable)="reloadTable()"></app-list-modal>
+<app-list-modal #listModal></app-list-modal>
+<app-list-send-email-modal #sendEmailModal></app-list-send-email-modal>

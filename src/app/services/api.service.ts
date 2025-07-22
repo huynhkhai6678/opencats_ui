@@ -1,6 +1,6 @@
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams} from  '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams} from  '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -31,7 +31,9 @@ export class ApiService {
 
   downloadFile(url: string) {
     return this.httpClient.get(`${environment.apiUrl}` + url, {
-      observe: 'response',
+      headers: new HttpHeaders({
+        'Accept': 'application/octet-stream',
+      }),
       responseType: 'blob' 
     });
   }
@@ -65,8 +67,7 @@ export class ApiService {
     sortField?: string;
     sortOrder?: 'asc' | 'desc';
     filter?: string;
-    startDate? : string;
-    endDate? : string;
+    filterOptions? : any;
   }): Observable<{ data: any[]; total: number }> {
     let params = new HttpParams()
       .set('page', options.page.toString())
@@ -81,10 +82,15 @@ export class ApiService {
       params = params.set('filter', options.filter);
     }
 
-    if (options.startDate && options.endDate) {
-      params = params.set('startDate', options.startDate);
-      params = params.set('endDate', options.endDate);
+    for (let key in options.filterOptions) {
+      const value = options.filterOptions[key];
+      params = params.set(key, value);
     }
+
+    // if (options.filterOptions) {
+    //   params = params.set('startDate', options.startDate);
+    //   params = params.set('endDate', options.endDate);
+    // }
 
     return this.httpClient.get<{ data: any[]; total: number }>(`${environment.apiUrl}${url}`, { params });
   }

@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { ContactDetailJobOrderComponent } from './contact-detail-job-order/contact-detail-job-order.component';
 import { AttachmentComponent } from '../../shared/attachment/attachment.component';
+import { ContactActivitiesComponent } from '../contact-activities/contact-activities.component';
 
 @Component({
   selector: 'app-contact-detail',
@@ -16,7 +17,8 @@ import { AttachmentComponent } from '../../shared/attachment/attachment.componen
     AttachmentComponent,
     DatePipe,
     RouterLink,
-    ButtonModule
+    ButtonModule,
+    ContactActivitiesComponent
   ],
   templateUrl: './contact-detail.component.html',
   styleUrl: './contact-detail.component.scss'

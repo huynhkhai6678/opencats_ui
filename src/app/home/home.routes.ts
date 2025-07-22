@@ -151,11 +151,27 @@ export const homeRoutes: Routes = [
         }
       },
       {
+        path: 'headhunts/kpi',
+        loadComponent: () => import('../headhunts/headhunt-kpi/headhunt-kpi.component').then(mod => mod.HeadhuntKpiComponent),
+        canActivate: [],
+        data: { 
+          title: 'Dtalent - Headhunts KPI' 
+        }
+      },
+      {
         path: 'headhunts/:id',
         loadComponent: () => import('../headhunts/headhunt-detail/headhunt-detail.component').then(mod => mod.HeadhuntDetailComponent),
         canActivate: [],
         data: { 
           title: 'Dtalent - Headhunts' 
+        }
+      },
+      {
+        path: 'reports',
+        loadComponent: () => import('../reports/reports.component').then(mod => mod.ReportsComponent),
+        canActivate: [],
+        data: { 
+          title: 'Dtalent - Reports' 
         }
       },
       {

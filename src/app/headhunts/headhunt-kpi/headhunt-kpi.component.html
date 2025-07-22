@@ -1,0 +1,108 @@
+@let list = headhunts.value() || [];
+
+<div class="mx-auto p-6 lg:px-8">
+    <div class="flex justify-end">
+        <p-select 
+            [options]="months()" 
+            [(ngModel)]="filterMonths" 
+        />
+    </div>
+    <div class="mt-4">
+        <p-table
+            [value]="list"
+            [lazy]="false"
+            [paginator]="false"
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="id">
+                        <div class="flex items-center gap-2">
+                            ID
+                            <p-sortIcon field="id"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="name">
+                        <div class="flex items-center gap-2">
+                            Name
+                            <p-sortIcon field="name"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="new_cv">
+                        <div class="flex items-center gap-2">
+                            New CVs
+                            <p-sortIcon field="new_cv"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="offered">
+                        <div class="flex items-center gap-2">
+                            Offered
+                            <p-sortIcon field="offered"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="submitted">
+                        <div class="flex items-center gap-2">
+                            Submitted
+                            <p-sortIcon field="submitted"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="interviewing">
+                        <div class="flex items-center gap-2">
+                            Interviewing
+                            <p-sortIcon field="interviewing"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="client_declined">
+                        <div class="flex items-center gap-2">
+                            Declined
+                            <p-sortIcon field="client_declined"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="contract">
+                        <div class="flex items-center gap-2">
+                            Contract
+                            <p-sortIcon field="contract"></p-sortIcon>
+                        </div>
+                    </th>
+                    <th pSortableColumn="total_score">
+                        <div class="flex items-center gap-2">
+                            Total Score
+                            <p-sortIcon field="total_score"></p-sortIcon>
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-row>
+                <tr>
+                    <td>
+                        {{ row.id }}
+                    </td>
+                    <td>
+                        {{ row.name }}
+                    </td>
+                    <td>
+                        {{ row.new_cv }}
+                    </td>
+                    <td>
+                        {{ row.offered }}
+                    </td>
+                    <td>
+                        {{ row.submitted }}
+                    </td>
+                    <td>
+                        {{ row.interviewing }}
+                    </td>
+                    <td>
+                        {{ row.client_declined }}
+                    </td>
+                    <td>
+                        {{ row.contract }}
+                    </td>
+                    <td>
+                        {{ row.total_score }}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
