@@ -26,9 +26,10 @@ export class AttachmentComponent {
 
   @ViewChild(FileUpload) fu!: FileUpload;
 
-  id = input<number>(0);
-  type = input<string>('');
-  typeNumber = input<number>(0);
+  id = input.required<number>();
+  type = input.required<string>();
+  typeNumber = input.required<number>();
+  createRedacted = input<boolean>(false);
 
   allowSubmit = signal<boolean>(false);
 
@@ -48,14 +49,10 @@ export class AttachmentComponent {
     }
   )
 
-  onSelect(event : any) {
-    this.allowSubmit.set(true);
-  }
-
   onUpload(event: any) {
     const file: File = event.files[0];
-    this.formService.submitAttachmentFile(this.id(), this.typeNumber(), file).subscribe(res => {
-      this.messageService.add({ severity: 'success', summary: 'Delete Attachment', detail: res.message });
+    this.formService.submitAttachmentFile(this.id(), this.typeNumber(), file, this.createRedacted()).subscribe(res => {
+      this.messageService.add({ severity: 'success', summary: 'Upload Attachment', detail: res.message });
       this.attachments.reload();
       this.fu.clear();
       this.allowSubmit.set(false);

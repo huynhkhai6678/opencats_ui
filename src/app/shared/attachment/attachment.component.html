@@ -16,7 +16,7 @@
         chooseLabel="Add Attachment" 
         chooseIcon="pi pi-upload"
         [customUpload]="true"
-        (onSelect)="onSelect($event)"
+        (onSelect)="allowSubmit.set(true)"
         (uploadHandler)="onUpload($event)" 
     />
     <p-button label="Upload" (onClick)="fu.upload();" severity="primary" [disabled]="!allowSubmit()"/>

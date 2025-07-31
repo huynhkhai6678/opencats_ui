@@ -29,6 +29,12 @@ body {
     border: 1px solid var(--fc-event-border-color);
     color: var(--fc-button-text-color);
   }
+
+  .fc-event {
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 .active-link {

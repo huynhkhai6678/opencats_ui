@@ -83,6 +83,8 @@ export class CalendarModelComponent extends BaseComponent implements OnInit {
       date : ['', [Validators.required]],
       time : ['', [Validators.required]],
       all_day: [true, [Validators.required]],
+      data_item_type : [-1],
+      data_item_id : [-1],
       duration: [60],
       description: ['']
     });

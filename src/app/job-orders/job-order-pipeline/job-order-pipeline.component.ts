@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { JobOrderPipelineModalComponent } from '../job-order-pipeline-modal/job-order-pipeline-modal.component';
 import { BaseComponent } from '../../base/base.component';
 import { PipelineModalComponent } from '../../shared/pipeline-modal/pipeline-modal.component';
+import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-job-order-pipeline',
@@ -22,6 +23,7 @@ import { PipelineModalComponent } from '../../shared/pipeline-modal/pipeline-mod
     TableModule,
     FontAwesomeModule,
     PipelineModalComponent,
+    SafeHtmlPipe,
     JobOrderPipelineModalComponent
   ],
   templateUrl: './job-order-pipeline.component.html',

@@ -69,23 +69,26 @@
                     <p-rating [(ngModel)]="row.rating_value" (onRate)="onRating($event, row.candidate_joborder_id)"/>
                 </td>
                 <td>
-                    {{ row.candidate?.full_name }}
+                    {{ row.full_name }}
                 </td>
                 <td>
                     {{ row.date_created | date : "dd/MM/yyyy" }}
                 </td>
                 <td>
-                    {{ row.candidate?.entered_user?.name }}
+                    {{ row.headhunt_name }}
                 </td>
                 <td>
-                    {{ row.status_info.short_description }}
+                    {{ row.status_description }}
                 </td>
                 <td>
                     {{ row.candidate_confirm_status ? 'YES' : 'NO' }}
                 </td>
-                <td>
-                    TO DO
-                </td>
+                @if (row.last_activity) { 
+                    <td [innerHTML]="row.last_activity | safeHtml">
+                    </td>
+                } @else {
+                    <td></td>
+                }
                 <td>
                     <div class="flex gap-2">
                         <p-button severity="info" (onClick)="edit(row.candidate_joborder_id)">

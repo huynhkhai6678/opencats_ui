@@ -51,12 +51,14 @@ export class FormService {
   submitAttachmentFile(
     id: number,
     type: number,
-    file: any
+    file: any,
+    createRedacted : boolean = false
   ): Observable<any> {
 
     return this.apiService.postFileWithParams(`attachments`, {
       data_item_id: id,
       data_type_id: type,
+      create_redacted: createRedacted,
       file
     });
   }

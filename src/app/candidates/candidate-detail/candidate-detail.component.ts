@@ -8,6 +8,7 @@ import { BaseComponent } from '../../base/base.component';
 import { AttachmentComponent } from '../../shared/attachment/attachment.component';
 import { CandidateJobOrderPipelineComponent } from '../candidate-job-order-pipeline/candidate-job-order-pipeline.component';
 import { CandidateActivitiesComponent } from '../candidate-activities/candidate-activities.component';
+import { CandidateCalendarComponent } from '../candidate-calendar/candidate-calendar.component';
 
 @Component({
   selector: 'app-candidate-detail',
@@ -17,6 +18,7 @@ import { CandidateActivitiesComponent } from '../candidate-activities/candidate-
     ButtonModule,
     DatePipe,
     CandidateJobOrderPipelineComponent,
+    CandidateCalendarComponent,
     CandidateActivitiesComponent
   ],
   templateUrl: './candidate-detail.component.html',
