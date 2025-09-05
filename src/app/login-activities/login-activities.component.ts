@@ -8,6 +8,7 @@ import { ApiService } from '../services/api.service';
 import { UserLogin } from './login-activity.model';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
   selector: 'app-login-activities',
@@ -15,6 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
     FormsModule,
     TableModule,
     DatePipe,
+    BadgeModule,
     ButtonModule,
     SelectModule,
     InputTextModule
@@ -28,8 +30,11 @@ export class LoginActivitiesComponent {
   loading: boolean = false;
   lastEvent : any = null;
 
-  filterStatus = 1;
-  filterOptions = signal<{name: string; value: number}[]>([
+  statusValues = signal<{name: string; value: number | null}[]>([
+    {
+      name: 'All',
+      value: null
+    },
     {
       name: 'Login successfully',
       value: 1
@@ -41,6 +46,9 @@ export class LoginActivitiesComponent {
   ]);
 
   apiService = inject(ApiService);
+  filterOptions = {
+    successful: null,
+  }
 
   ngOnInit(): void {
     this.lastEvent = {
@@ -60,8 +68,9 @@ export class LoginActivitiesComponent {
     const sortField = event.sortField || 'activity_id';
     const sortOrder = event.sortOrder === 1 ? 'desc' : 'asc';
     const filter = event.globalFilter || '';
+    const filterOptions = this.filterOptions;
 
-    this.apiService.getPaginatedData('login-activities', { page, size, sortField, sortOrder, filter }).subscribe(res => {
+    this.apiService.getPaginatedData('login-activities', { page, size, sortField, sortOrder, filter, filterOptions }).subscribe(res => {
       this.records = res.data;
       this.totalRecords = res.total;
       this.lastEvent = event;
@@ -69,9 +78,8 @@ export class LoginActivitiesComponent {
     });
   }
 
-  onDateChange(event : SelectChangeEvent) {
-    const value = event.value;
-    this.loadData({ ...this.lastEvent, startDate: value[0], endDate: value[1] });
+  onFilterChange(event : SelectChangeEvent) {
+   this.loadData({ ...this.lastEvent, filterOptions: this.filterOptions });
   }
 
   onGlobalFilter(event: any) {

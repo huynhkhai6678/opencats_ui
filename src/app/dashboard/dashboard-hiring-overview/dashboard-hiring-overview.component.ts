@@ -69,7 +69,6 @@ export class DashboardHiringOverviewComponent {
       (response: any) => {
         const categories = ['Today', 'Yesterday', 'This Week', 'Last Week', 'To Date'];
         const series = this.transformData(response.data);
-        console.log('Transformed Series:', series);
 
         // Update chart options
         this.chartOptions = {
@@ -78,8 +77,6 @@ export class DashboardHiringOverviewComponent {
           series: series,
         };
         this.updateFlag = true;
-        console.log('Hiring Overview Data:', response.data);
-
       },
       error => {
         console.error('Error fetching reports:', error);

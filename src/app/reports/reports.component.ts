@@ -44,12 +44,12 @@ export class ReportsComponent {
         minPointLength: 20,
          events: {
           click: function (e) {
-            const seriesName = e.point.series.name;
-            if (seriesName != 'New Submissions' && seriesName != 'New Placements') {
-              return;
-            }
+            // const seriesName = e.point.series.name;
+            // if (seriesName != 'New Submissions' && seriesName != 'New Placements') {
+            //   return;
+            // }
             
-            alert(`You clicked on the bar for "${seriesName}"`);
+            // alert(`You clicked on the bar for "${seriesName}"`);
           }
         }
       }

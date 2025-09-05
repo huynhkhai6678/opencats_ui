@@ -48,6 +48,7 @@ export class CandidateActivitiesComponent extends BaseComponent {
     this.activityModal.header.set('Create activity');
     this.activityModal.visible.set(true);
     this.activityModal.dataType.set(100);
+    this.activityModal.dataItemId.set(this.candidateId());
     this.activityModal.initFormData();
   }
 
@@ -56,6 +57,7 @@ export class CandidateActivitiesComponent extends BaseComponent {
     this.activityModal.header.set('Edit activity');
     this.activityModal.visible.set(true);
     this.activityModal.dataType.set(100);
+    this.activityModal.dataItemId.set(this.candidateId());
     this.activityModal.initFormData();
   }
 

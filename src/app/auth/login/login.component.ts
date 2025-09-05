@@ -46,6 +46,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
         this.isSubmitted = false;
         this.authService.saveToken(res.token);
         this.authService.saveUser(res.data);
+        if (this.authService.isHeadhunt()) {
+          return this.router.navigate(['home/job-orders']);
+        }
         return this.router.navigate(['home']);
       },
       error: (error) => {

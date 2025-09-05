@@ -113,6 +113,12 @@ export class HomeHeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.routes.set(this.allRoutes);
+
+    if(this.authService.isHeadhunt()) {
+      const excludedUrls = ['Headhunts', 'Dashboard', 'Companies', 'Contacts', 'Lists', 'Reports', 'Calendar']
+      const routes = this.allRoutes.filter(router => { return !excludedUrls.includes(router.name) });
+      this.routes.set(routes);
+    }
   }
 
   changePassword() {

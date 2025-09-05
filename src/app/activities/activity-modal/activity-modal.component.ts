@@ -40,9 +40,11 @@ export class ActivityModalComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.activityForm = this.fb.group({
       date_created: ['', [Validators.required]],
-      type: ['', [Validators.required]],
+      type: [100, [Validators.required]],
       notes: ['', [Validators.required]]
     });
+
+    this.activityForm.controls['date_created'].setValue(new Date());
   }
 
   initFormData() {

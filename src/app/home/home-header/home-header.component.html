@@ -7,9 +7,11 @@
       </a>
     </div>
     <div class="flex item-end">
-        <a class="rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer" (click)="setting.toggle($event)">
-          <fa-icon [icon]="faGear"></fa-icon>
-        </a>
+        @if (authService.isAdmin()) {
+          <a class="rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer" (click)="setting.toggle($event)">
+            <fa-icon [icon]="faGear"></fa-icon>
+          </a>
+        }
         <a class="rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer" (click)="menu.toggle($event)">
           <fa-icon [icon]="faUser"></fa-icon>
         </a>

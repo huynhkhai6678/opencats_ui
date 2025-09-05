@@ -23,12 +23,11 @@ export const appConfig: ApplicationConfig = {
         }
     }),
     provideHighcharts({
-      instance: () => import('highcharts'),
+      instance: () => import('highcharts/esm/highcharts').then(m => m.default),
       modules: () => {
         return [
           import('highcharts/esm/modules/accessibility'),
           import('highcharts/esm/modules/exporting'),
-          import('highcharts/esm/modules/export-data'),
         ];
       },
     }),

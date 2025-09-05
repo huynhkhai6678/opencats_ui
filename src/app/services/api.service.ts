@@ -84,13 +84,10 @@ export class ApiService {
 
     for (let key in options.filterOptions) {
       const value = options.filterOptions[key];
-      params = params.set(key, value);
+      if (value != null) {
+        params = params.set(key, value);
+      }
     }
-
-    // if (options.filterOptions) {
-    //   params = params.set('startDate', options.startDate);
-    //   params = params.set('endDate', options.endDate);
-    // }
 
     return this.httpClient.get<{ data: any[]; total: number }>(`${environment.apiUrl}${url}`, { params });
   }

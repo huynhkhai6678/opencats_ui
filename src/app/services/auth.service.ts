@@ -5,10 +5,8 @@ import { ApiService } from "./api.service";
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-    readonly ADMIN_TYPE = 1;
-    readonly DOCTOR_TYPE = 2;
-    readonly PATIENT_TYPE = 3;
-    readonly SUPER_ADMIN_TYPE = 5;
+    readonly ADMIN_ACCESS_LEVEL = 500;
+    readonly HEADHHUNT_ACCESS_LEVEL = 310;
 
     constructor(
         private apiService: ApiService,
@@ -27,34 +25,18 @@ export class AuthService {
         return null;
     }
 
-    isSuperAdmin(): boolean {
-        const user = this.getUser();
-        if (user) {
-            return user.type == this.SUPER_ADMIN_TYPE;
-        } 
-        return false;
-    }
-
     isAdmin(): boolean {
         const user = this.getUser();
         if (user) {
-            return user.type == this.ADMIN_TYPE;
+            return user.access_level == this.ADMIN_ACCESS_LEVEL;
         } 
         return false;
     }
 
-    isDoctor(): boolean {
+    isHeadhunt(): boolean {
         const user = this.getUser();
         if (user) {
-            return user.type == this.DOCTOR_TYPE;
-        } 
-        return false;
-    }
-
-    isPatient(): boolean {
-        const user = this.getUser();
-        if (user) {
-            return user.type == this.PATIENT_TYPE;
+            return user.access_level == this.HEADHHUNT_ACCESS_LEVEL;
         } 
         return false;
     }
